@@ -1,6 +1,7 @@
 "use client";
 import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { Input } from "@/app/components/input";
 
 type Variant = "login" | "register";
 
@@ -45,7 +46,11 @@ const AuthForm = () => {
 	};
 	return (
 		<div className="mt-8 sm:max-auto sm:w-full sm:max-w-md">
-			<div className="bg-white px-4 py-8 shadow sm:rounded-lg sm:px-10"></div>
+			<div className="bg-white px-4 py-8 shadow sm:rounded-lg sm:px-10">
+				<form className="space-y-6" onSubmit={handleSubmit(onsSubmit)}>
+                    <Input />
+                </form>
+			</div>
 		</div>
 	);
 };

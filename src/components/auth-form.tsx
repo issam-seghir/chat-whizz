@@ -1,13 +1,14 @@
 "use client";
+import { Button } from "@/components/button";
+import { Input } from "@/components/input";
 import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { Input } from "@/app/components/input";
 
 type Variant = "login" | "register";
 
 const AuthForm = () => {
 	const [variant, setVariant] = useState<Variant>("login");
-	const [isLoading, setIsLoading] = useState<Boolean>(false);
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const toggleVariant = useCallback(() => {
 		setVariant(variant === "login" ? "register" : "login");
 	}, [variant]);
@@ -48,8 +49,21 @@ const AuthForm = () => {
 		<div className="mt-8 sm:max-auto sm:w-full sm:max-w-md">
 			<div className="bg-white px-4 py-8 shadow sm:rounded-lg sm:px-10">
 				<form className="space-y-6" onSubmit={handleSubmit(onsSubmit)}>
-                    <Input id="email" label="email" type="text" register={register}  errors={errors}/>
-                </form>
+					{variant === "register" && (
+						<Input id="username" label="username" type="text" register={register} errors={errors} />
+					)}
+					<Input id="password" label="password" type="password" register={register} errors={errors} />
+
+					<Input id="email" label="email" type="email" register={register} errors={errors} />
+                    <Button
+                    disabled={isLoading}
+                    fullWidth
+                    onClick={() => {}}
+                    type="submit"
+                    >
+                        {variant === "login" ? "Sign in" : "Register"}
+                    </Button>
+				</form>
 			</div>
 		</div>
 	);

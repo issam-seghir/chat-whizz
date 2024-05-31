@@ -27,16 +27,18 @@ model User {
   conversations  Conversation[] @relation(fields: [converstionIds], references: [id])
 
   seenMessageIds String[]  @db.ObjectId
-  seenMessages   Message[] @relation("Seen", fields: [seenMessagesIds], references: [id])
+  seenMessages   Message[] @relation("Seen", fields: [seenMessageIds], references: [id])
 
   accounts Account[]
   messages Message[]
 }
 
 model Account {
-  id           String  @id @default(auto()) @map("_id") @db.ObjectId
-  userId       String  @db.ObjectId
-  user         User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  userId String @db.ObjectId
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   type         String
   provider     String
   providerId   String
@@ -52,27 +54,32 @@ model Account {
 }
 
 model Conversation {
-  id         String    @id @default(auto()) @map("_id") @db.ObjectId
-  name      String?
-  isGroup    Boolean   @default(false)
-  userIds    String[]
-  users      User[]    @relation(fields: [userIds], references: [id])
+  id      String  @id @default(auto()) @map("_id") @db.ObjectId
+  name    String?
+  isGroup Boolean @default(false)
+
+  userIds String[] @db.ObjectId
+  users   User[]   @relation(fields: [userIds], references: [id])
+
   messageIds String[]  @db.ObjectId
-  messages   Message[] 
+  messages   Message[]
+
   lastMessageAt DateTime @default(now())
-  createdAt  DateTime  @default(now())
+  createdAt     DateTime @default(now())
 }
 
 model Message {
-  id             String       @id @default(auto()) @map("_id") @db.ObjectId
-  userId         String
-  user           User         @relation(fields: [userId], references: [id])
-  conversationId String
-  conversation   Conversation @relation(fields: [conversationId], references: [id])
-  content        String
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
+  id    String  @id @default(auto()) @map("_id") @db.ObjectId
+  body  String?
+  image String?
 
-  seenByUserIds String[] @db.ObjectId
-  seenByUsers   User[]   @relation("Seen", fields: [seenByUserIds], references: [id])
+  senderId       String       @db.ObjectId
+  sender         User         @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  conversationId String       @db.ObjectId
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  seenIds        String[]     @db.ObjectId
+  seen           User[]       @relation("Seen", fields: [seenIds], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

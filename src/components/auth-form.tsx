@@ -3,7 +3,7 @@ import { Button } from "@/components/button";
 import { Input } from "@/components/input";
 import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { BsGoogle, Bsgit, BsGithub } from "react-icons/bs";
+import { BsGithub, BsGoogle } from "react-icons/bs";
 type Variant = "login" | "register";
 
 const AuthForm = () => {
@@ -79,8 +79,7 @@ const AuthForm = () => {
 						secondary
 						className="hover:bg-gray-50"
 						disabled={isLoading}
-					>
-					</Button>
+					></Button>
 					<Button
 						icon={BsGithub}
 						onClick={() => socialAction("github")}
@@ -89,8 +88,17 @@ const AuthForm = () => {
 						secondary
 						className="hover:bg-gray-50"
 						disabled={isLoading}
+					></Button>
+				</div>
+				<div className="flex gap-2 justify-center text-sm mt-6 px-2 text-gray-500 ">
+					<span>{variant === "login" ? "Don't have an account?" : "Already have an account?"}</span>
+					<button
+						type="button"
+						onClick={toggleVariant}
+						className="text-sky-500 hover:underline focus:outline-none"
 					>
-					</Button>
+						{variant === "login" ? "Register" : "Login"}
+					</button>
 				</div>
 			</div>
 		</div>

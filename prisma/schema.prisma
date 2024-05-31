@@ -14,13 +14,65 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  username  String?
-  email     String   @unique
-  emailVerified DateTime?
-  image     String?
-  password  String
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  username       String?
+  email          String?   @unique
+  emailVerified  DateTime?
+  image          String?
   hashedPassword String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  converstionIds String[]       @db.ObjectId
+  conversations  Conversation[] @relation(fields: [converstionIds], references: [id])
+
+  seenMessageIds String[]  @db.ObjectId
+  seenMessages   Message[] @relation("Seen", fields: [seenMessagesIds], references: [id])
+
+  accounts Account[]
+  messages Message[]
+}
+
+model Account {
+  id           String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId       String  @db.ObjectId
+  user         User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type         String
+  provider     String
+  providerId   String
+  refreshToken String? @db.String
+  accessToken  String? @db.String
+  expiresAt    Int?
+  tokentype    String?
+  scoope       String?
+  idToken      String? @db.String
+  sessionState String? @db.String
+
+  @@unique([provider, providerId])
+}
+
+model Conversation {
+  id         String    @id @default(auto()) @map("_id") @db.ObjectId
+  name      String?
+  isGroup    Boolean   @default(false)
+  userIds    String[]
+  users      User[]    @relation(fields: [userIds], references: [id])
+  messageIds String[]  @db.ObjectId
+  messages   Message[] 
+  lastMessageAt DateTime @default(now())
+  createdAt  DateTime  @default(now())
+}
+
+model Message {
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  userId         String
+  user           User         @relation(fields: [userId], references: [id])
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  content        String
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  seenByUserIds String[] @db.ObjectId
+  seenByUsers   User[]   @relation("Seen", fields: [seenByUserIds], references: [id])
 }

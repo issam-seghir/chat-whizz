@@ -3,7 +3,7 @@ import { Button } from "@/components/button";
 import { Input } from "@/components/input";
 import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-
+import { BsGoogle, Bsgit, BsGithub } from "react-icons/bs";
 type Variant = "login" | "register";
 
 const AuthForm = () => {
@@ -26,6 +26,11 @@ const AuthForm = () => {
 		},
 	});
 
+	const socialAction = (action: string) => {
+		setIsLoading(true);
+		console.log(action);
+	};
+
 	const onsSubmit: SubmitHandler<FieldValues> = async (data) => {
 		try {
 			setIsLoading(true);
@@ -36,10 +41,6 @@ const AuthForm = () => {
 			} else {
 				// register
 			}
-			const socialAction = (action: string) => {
-				setIsLoading(true);
-				console.log(action);
-			};
 		} catch (error) {
 		} finally {
 			setIsLoading(false);
@@ -55,15 +56,42 @@ const AuthForm = () => {
 					<Input id="password" label="password" type="password" register={register} errors={errors} />
 
 					<Input id="email" label="email" type="email" register={register} errors={errors} />
-                    <Button
-                    disabled={isLoading}
-                    fullWidth
-                    onClick={() => {}}
-                    type="submit"
-                    >
-                        {variant === "login" ? "Sign in" : "Register"}
-                    </Button>
+					<Button disabled={isLoading} fullWidth onClick={() => {}} type="submit">
+						{variant === "login" ? "Sign in" : "Register"}
+					</Button>
 				</form>
+				<div className="mt-6">
+					<div className="relative">
+						<div className="absolute inset-0 flex items-center">
+							<div className="w-full border-t border-gray-300"></div>
+						</div>
+						<div className="relative flex justify-center text-sm">
+							<span className="px-2 bg-white text-gray-500">Or continue with</span>
+						</div>
+					</div>
+				</div>
+				<div className="mt-6 flex gap-2">
+					<Button
+						icon={BsGoogle}
+						onClick={() => socialAction("google")}
+						type="button"
+						fullWidth
+						secondary
+						className="hover:bg-gray-50"
+						disabled={isLoading}
+					>
+					</Button>
+					<Button
+						icon={BsGithub}
+						onClick={() => socialAction("github")}
+						type="button"
+						fullWidth
+						secondary
+						className="hover:bg-gray-50"
+						disabled={isLoading}
+					>
+					</Button>
+				</div>
 			</div>
 		</div>
 	);

@@ -1,11 +1,15 @@
+import NextAuth , {AuthOptions} from "next-auth";
+import bycrypt from "bcrypt";
+
+// Prisma
 import prisma from "@/libs/prismadb";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
-import bycrypt from "bcrypt";
-import NextAuth from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
+
+// Providers
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
+import CredentialsProvider from "next-auth/providers/credentials";
 
 // fix prisma adapter typing error when used with prisma extensions like
 // prisma extension accelerate
@@ -20,7 +24,7 @@ export function ExtendedPrismaAdapter(
 	return PrismaAdapter(p);
 }
 
-export default NextAuth({
+export const authOptions  : AuthOptions= {
 	adapter: ExtendedPrismaAdapter(prisma),
 	session: {
 		strategy: "jwt",
@@ -64,4 +68,8 @@ export default NextAuth({
 			},
 		}),
 	],
-});
+} ;
+
+const handler = NextAuth(authOptions);
+
+export { handler as GET, handler as POST };

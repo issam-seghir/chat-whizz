@@ -36,9 +36,24 @@ const AuthForm = () => {
 		);
 	}, [variant, reset]);
 
-	const socialAction = (action: string) => {
-		setIsLoading(true);
-		console.log(action);
+	const socialAction = async (action: string) => {
+		try {
+			setIsLoading(true);
+			const callback = await signIn(action, { redirect: false });
+			console.log(callback);
+			
+			if (callback?.ok && !callback?.error) {
+				toast.success("Login successfully 🚀\n Redirecting...");
+			}
+			if (callback?.error) {
+				throw new Error(callback.error);
+			}
+		} catch (error:any) {
+			toast.error(error?.message);
+			console.log(error);
+		} finally {
+			setIsLoading(false);
+		}
 	};
 
 	const onsSubmit: SubmitHandler<FieldValues> = async (data) => {
@@ -55,7 +70,7 @@ const AuthForm = () => {
 					redirect: false,
 				});
 
-				if (callback?.ok) {
+				if (callback?.ok && !callback?.error) {
 					toast.success("Login successfully 🚀\n Redirecting...");
 				}
 				if (callback?.error) {
@@ -68,7 +83,7 @@ const AuthForm = () => {
 				toast.error(error.response?.data?.error);
 			} else if (error instanceof Error) {
 				console.log("------ NEXTAUTH LOGIN ERROR -----------");
-				toast.error(error.message);
+				toast.error(error?.message);
 			} else {
 				toast.error("Something wrong happens.");
 			}

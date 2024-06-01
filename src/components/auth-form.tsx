@@ -1,11 +1,11 @@
 "use client";
 import { Button } from "@/components/button";
 import { Input } from "@/components/input";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 import { BsGithub, BsGoogle } from "react-icons/bs";
-
 type Variant = "login" | "register";
 
 const AuthForm = () => {
@@ -36,16 +36,23 @@ const AuthForm = () => {
 	const onsSubmit: SubmitHandler<FieldValues> = async (data) => {
 		try {
 			setIsLoading(true);
-			console.log(data);
-			console.log(variant);
-
 			if (variant === "register") {
-				// register user
 				const response = await axios.post("/api/register", data);
 				console.log(response);
+				toast.success("User created successfully 🎊");
 			} else {
+				const response = await axios.post("/api/login", data);
+				console.log(response);
+				toast.success("Login successfully 🚀\n Redirecting...");
 			}
-		} catch (error) {
+		} catch (error: any) {
+			console.log(error);
+
+			if (error instanceof AxiosError) {
+				console.log("------ REGESTER/LOGIN ERROR -----------");
+				toast.error("Error.", error.response?.data?.error);
+			}
+			toast.error("Something wrong happens.", error);
 		} finally {
 			setIsLoading(false);
 		}

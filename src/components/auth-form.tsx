@@ -1,9 +1,11 @@
 "use client";
 import { Button } from "@/components/button";
 import { Input } from "@/components/input";
+import axios from "axios";
 import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { BsGithub, BsGoogle } from "react-icons/bs";
+
 type Variant = "login" | "register";
 
 const AuthForm = () => {
@@ -35,11 +37,13 @@ const AuthForm = () => {
 		try {
 			setIsLoading(true);
 			console.log(data);
+			console.log(variant);
 
-			if (variant === "login") {
-				// login
+			if (variant === "register") {
+				// register user
+				const response = await axios.post("/api/register", data);
+				console.log(response);
 			} else {
-				// register
 			}
 		} catch (error) {
 		} finally {
@@ -56,7 +60,7 @@ const AuthForm = () => {
 					<Input id="password" label="password" type="password" register={register} errors={errors} />
 
 					<Input id="email" label="email" type="email" register={register} errors={errors} />
-					<Button disabled={isLoading} fullWidth onClick={() => {}} type="submit">
+					<Button disabled={isLoading} fullWidth type="submit">
 						{variant === "login" ? "Sign in" : "Register"}
 					</Button>
 				</form>

@@ -2,31 +2,39 @@
 import { Button } from "@/components/button";
 import { Input } from "@/components/input";
 import axios, { AxiosError } from "axios";
+import { signIn } from "next-auth/react";
 import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { BsGithub, BsGoogle } from "react-icons/bs";
+
 type Variant = "login" | "register";
 
 const AuthForm = () => {
 	const [variant, setVariant] = useState<Variant>("login");
 	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const toggleVariant = useCallback(() => {
-		setVariant(variant === "login" ? "register" : "login");
-	}, [variant]);
 
 	const {
 		register,
+		reset,
 		handleSubmit,
 		watch,
 		formState: { errors },
 	} = useForm<FieldValues>({
-		defaultValues: {
-			username: "",
-			email: "",
-			password: "",
-		},
+		defaultValues:
+			variant === "login"
+				? { email: "lorando@gmail.com", password: "123456" }
+				: { username: "", email: "", password: "" },
 	});
+
+	const toggleVariant = useCallback(() => {
+		setVariant(variant === "login" ? "register" : "login");
+		reset(
+			variant === "login"
+				? { username: "", email: "", password: "" }
+				: { email: "lorando@gmail.com", password: "123456" }
+		);
+	}, [variant, reset]);
 
 	const socialAction = (action: string) => {
 		setIsLoading(true);
@@ -41,19 +49,30 @@ const AuthForm = () => {
 				console.log(response);
 				toast.success("User created successfully 🎊");
 			} else {
-				const response = await axios.post("/api/login", data);
-				console.log(response);
-				toast.success("Login successfully 🚀\n Redirecting...");
+				const callback = await signIn("credentials", {
+					email: data.email,
+					password: data.password,
+					redirect: false,
+				});
+
+				if (callback?.ok) {
+					toast.success("Login successfully 🚀\n Redirecting...");
+				}
+				if (callback?.error) {
+					throw new Error(callback.error);
+				}
 			}
 		} catch (error: any) {
-			console.log(error);
-
 			if (error instanceof AxiosError) {
-				console.log("------ REGESTER/LOGIN ERROR -----------");
+				console.log("------ REGESTER ERROR -----------");
 				toast.error(error.response?.data?.error);
+			} else if (error instanceof Error) {
+				console.log("------ NEXTAUTH LOGIN ERROR -----------");
+				toast.error(error.message);
 			} else {
 				toast.error("Something wrong happens.");
 			}
+			console.log(error);
 		} finally {
 			setIsLoading(false);
 		}

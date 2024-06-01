@@ -3,18 +3,20 @@ import { FieldErrors , FieldValues,UseFormRegister } from 'react-hook-form'
 import clsx from 'clsx';
 
 interface InputProps {
-    label: string;
-    id: string;
-    type?: string;
-    required?: boolean;
-    register: UseFormRegister<FieldValues>;
-    errors: FieldErrors;
-    disabled?: boolean;
-    }
+	label: string;
+	id: string;
+	type?: string;
+	required?: boolean;
+	defaultValue?: string;
+	register: UseFormRegister<FieldValues>;
+	errors: FieldErrors;
+	disabled?: boolean;
+}
 
 export function Input({
     label,
     id,
+	defaultValue,
     type = "text",
     required = false,
     register,
@@ -31,6 +33,7 @@ export function Input({
 					id={id}
 					type={type}
 					autoComplete={id}
+					defaultValue={defaultValue}
 					disabled={disabled}
 					{...register(id, { required })}
 					className={clsx(

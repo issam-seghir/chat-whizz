@@ -50,9 +50,10 @@ const AuthForm = () => {
 
 			if (error instanceof AxiosError) {
 				console.log("------ REGESTER/LOGIN ERROR -----------");
-				toast.error("Error.", error.response?.data?.error);
+				toast.error(error.response?.data?.error);
+			} else {
+				toast.error("Something wrong happens.");
 			}
-			toast.error("Something wrong happens.", error);
 		} finally {
 			setIsLoading(false);
 		}

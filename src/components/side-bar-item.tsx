@@ -1,17 +1,21 @@
 "use client";
 
-import Link from "next/link";
 import clsx from "clsx";
+import { Url } from "next/dist/shared/lib/router/router";
+import Link from "next/link";
+import { IconType } from "react-icons";
 
 interface SideBarItemProps {
-	label: string;
-	icon: any;
-	href: string;
-	onClick?: () => void;
+	label?: string;
+	name: string;
+	path?: string;
+	href?: Url;
+	icon: IconType;
 	active?: boolean;
+	onClick?: () => void;
 }
 
-function SideBarItems({ label, icon :Icon, href, onClick, active }: SideBarItemProps) {
+export function SideBarItem({ label, icon: Icon, href = "", onClick, active }: SideBarItemProps) {
 	const handleClick = () => {
 		if (onClick) {
 			return onClick();
@@ -19,12 +23,15 @@ function SideBarItems({ label, icon :Icon, href, onClick, active }: SideBarItemP
 	};
 	return (
 		<li onClick={handleClick}>
-			<Link href={href} className={clsx(
-                "group flex gap-x-3 rounded-md text-sm p-3 leading-6 font-semibold text-gray-500 hover:text-black hover:bg-gray-100",
-                active && "bg-gray-100 text-black"
-            )}>
-                <Icon className="h-6 w-6 shrink-0"/>
-                <span className="sr-only">{label}</span>
+			<Link
+				href={href}
+				className={clsx(
+					"group flex gap-x-3 rounded-md text-sm p-3 leading-6 font-semibold text-gray-500 hover:text-black hover:bg-gray-100",
+					active && "bg-gray-100 text-black"
+				)}
+			>
+				<Icon className="h-6 w-6 shrink-0" />
+				<span className="sr-only">{label}</span>
 			</Link>
 		</li>
 	);

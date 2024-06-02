@@ -2,17 +2,24 @@
 import { Button } from "@/components/button";
 import { Input } from "@/components/input";
 import axios, { AxiosError } from "axios";
-import { signIn } from "next-auth/react";
-import { useCallback, useState } from "react";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { BsGithub, BsGoogle } from "react-icons/bs";
-
 type Variant = "login" | "register";
 
 const AuthForm = () => {
 	const [variant, setVariant] = useState<Variant>("login");
 	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const session = useSession();
+	const router = useRouter();
+	useEffect(() => {
+		if (session.status === "authenticated") {
+			router.push("/users");
+		}
+	}, [session?.status, router]);
 
 	const {
 		register,
@@ -48,7 +55,7 @@ const AuthForm = () => {
 			if (callback?.error) {
 				throw new Error(callback.error);
 			}
-		} catch (error:any) {
+		} catch (error: any) {
 			toast.error(error?.message);
 			console.log(error);
 		} finally {
@@ -62,6 +69,14 @@ const AuthForm = () => {
 			if (variant === "register") {
 				const response = await axios.post("/api/register", data);
 				console.log(response);
+				if (response) {
+					// login user after register
+					await signIn("credentials", {
+						email: data.email,
+						password: data.password,
+						redirect: false,
+					});
+				}
 				toast.success("User created successfully 🎊");
 			} else {
 				const callback = await signIn("credentials", {
@@ -72,6 +87,7 @@ const AuthForm = () => {
 
 				if (callback?.ok && !callback?.error) {
 					toast.success("Login successfully 🚀\n Redirecting...");
+					router.push("/users");
 				}
 				if (callback?.error) {
 					throw new Error(callback.error);

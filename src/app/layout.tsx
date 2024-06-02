@@ -1,9 +1,10 @@
+import { NextAuthProvider } from "@/contexts/nextauth-provider";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
 import { Toaster } from "react-hot-toast";
-const inter = Inter({ subsets: ["latin"] });
+import "./globals.css";
 
+const inter = Inter({ subsets: ["latin"] });
 // metadata for html head to improve SEO
 export const metadata: Metadata = {
 	title: "Spectrum Store - Your One-Stop Shop",
@@ -22,8 +23,10 @@ export default function RootLayout({
 	return (
 		<html lang="en" className="scroll-smooth" suppressHydrationWarning>
 			<body className={inter.className}>
-				<Toaster />
-				{children}
+				<NextAuthProvider>
+					<Toaster />
+					{children}
+				</NextAuthProvider>
 			</body>
 		</html>
 	);

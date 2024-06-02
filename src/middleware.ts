@@ -53,7 +53,7 @@ export default withAuth(
 		const token = await getToken({ req });
 		const isAuth = !!token;
 
-		// 2. Check if the current route is protected or public
+		// // 2. Check if the current route is protected or public
 		const path = req.nextUrl.pathname;
 		const isProtectedRoute = protectedRoutes.includes(path);
 		const isAuthRoutes = authRoutes.includes(path);
@@ -61,17 +61,7 @@ export default withAuth(
 			return NextResponse.redirect(new URL("/users", req.url));
 		}
 
-		if (!isAuth) {
-			// If the current page is already the login page, don't redirect
-			if (path === "/") {
-				return null;
-			}
-
-			// Check if the 'from' URL is a valid route
-			if (!isProtectedRoute) {
-				// If the 'from' URL is not valid, redirect to the default page
-				return NextResponse.redirect(new URL("/users", req.url));
-			}
+		if (!isAuth && !isAuthRoutes) {
 			const from = req.nextUrl.search ? path + req.nextUrl.search : path;
 			return NextResponse.redirect(new URL(`/?from=${encodeURIComponent(from)}`, req.url));
 		}
@@ -90,6 +80,8 @@ export default withAuth(
 );
 
 // Routes Middleware should not run on
+//! exclude all image types ,
+//! if you exclude only png then other image like SVG LOGO will not be displayed
 export const config = {
-	matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"],
+	matcher: ["/((?!api|_next/static|_next/image|public|.*\\.*$).*)"],
 };

@@ -4,25 +4,27 @@ import { Input } from "@/components/input";
 import axios, { AxiosError } from "axios";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useState } from "react";
+import { useCallback, useState,useEffect } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { BsGithub, BsGoogle } from "react-icons/bs";
+import { authOptions } from "../app/api/auth/[...nextauth]/route";
+
 type Variant = "login" | "register";
 
 const AuthForm = () => {
 	const [variant, setVariant] = useState<Variant>("login");
 	const [isLoading, setIsLoading] = useState<boolean>(false);
-	const session = useSession();
 	const router = useRouter();
 	const searchParams = useSearchParams();
 	const redirectUrl = searchParams.get("from")?.toString() || "/users";
+	const session = useSession();
 
-	// useEffect(() => {
-	// 	if (session.status === "authenticated") {
-	// 		router.push(redirectUrl);
-	// 	}
-	// }, [session?.status, router]);
+	useEffect(() => {
+		if (session.status === "authenticated") {
+			router.push(redirectUrl);
+		}
+	}, [session?.status, router]);
 
 	const {
 		register,

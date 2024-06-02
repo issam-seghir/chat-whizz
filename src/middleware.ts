@@ -17,16 +17,15 @@ const corsOptions = {
 
 // 1. Specify protected and public routes
 const protectedRoutes = [
-	"/",
-	"/products",
-	"/products/:path*", //  target all paths under /products
-	"/admin",
-	"/admin/:path*", //  target all paths under /admin
+	"/users",
+	"/users/:path*", //  target all paths under /users
 ];
-const authRoutes = ["/login", "/register"];
+const authRoutes = ["/"];
 
 export default withAuth(
 	async function middleware(req) {
+		console.log("middleware");
+
 		// Check the origin from the request
 		const origin = req.headers.get("origin") ?? "";
 		const isAllowedOrigin = allowedOrigins.includes(origin);
@@ -55,27 +54,22 @@ export default withAuth(
 		// 2. Check if the user is authenticated
 		const token = await getToken({ req });
 		const isAuth = !!token;
+		console.log("token:");
+		console.log(token);
+
 		// 2. Check if the current route is protected or public
 		const path = req.nextUrl.pathname;
 		const isProtectedRoute = protectedRoutes.includes(path);
 		const isAuthRoutes = authRoutes.includes(path);
-
-		if (isAuthRoutes) {
-			if (isAuth) {
-				return NextResponse.redirect(new URL("/home", req.url));
-			}
-
-			return null;
+		if (isAuthRoutes && isAuth) {
+			return NextResponse.redirect(new URL("/users", req.url));
 		}
 
 		if (!isAuth) {
-			let from = path;
-			if (req.nextUrl.search) {
-				from += req.nextUrl.search;
-			}
-
-			return NextResponse.redirect(new URL(`/login?from=${encodeURIComponent(from)}`, req.url));
+			const from = req.nextUrl.search ? path + req.nextUrl.search : path;
+			return NextResponse.redirect(new URL(`/?from=${encodeURIComponent(from)}`, req.url));
 		}
+		return null;
 	},
 	{
 		callbacks: {
@@ -89,8 +83,7 @@ export default withAuth(
 	}
 );
 
-
 // Routes Middleware should not run on
 export const config = {
-    matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"],
+	matcher: ["/((?!api|_next/static|_next/image|.*\\.png$).*)"],
 };

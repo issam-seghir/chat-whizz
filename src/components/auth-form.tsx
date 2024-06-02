@@ -4,7 +4,7 @@ import { Input } from "@/components/input";
 import axios, { AxiosError } from "axios";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { BsGithub, BsGoogle } from "react-icons/bs";
@@ -15,11 +15,11 @@ const AuthForm = () => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const session = useSession();
 	const router = useRouter();
-	useEffect(() => {
-		if (session.status === "authenticated") {
-			router.push("/users");
-		}
-	}, [session?.status, router]);
+	// useEffect(() => {
+	// 	if (session.status === "authenticated") {
+	// 		router.push("/users");
+	// 	}
+	// }, [session?.status, router]);
 
 	const {
 		register,
@@ -46,11 +46,11 @@ const AuthForm = () => {
 	const socialAction = async (action: string) => {
 		try {
 			setIsLoading(true);
-			const callback = await signIn(action, { redirect: false });
-			console.log(callback);
+			const callback = await signIn(action, {callbackUrl: '/users', redirect: true });
 
-			if (callback?.ok && !callback?.error) {
-				toast.success("Login successfully 🚀\n Redirecting...");
+			if (callback?.ok && !callback?.error || !callback) {
+				toast.success("Login successfully 🚀\n ");
+				router.push("/users");
 			}
 			if (callback?.error) {
 				throw new Error(callback.error);
@@ -68,7 +68,6 @@ const AuthForm = () => {
 			setIsLoading(true);
 			if (variant === "register") {
 				const response = await axios.post("/api/register", data);
-				console.log(response);
 				if (response) {
 					// login user after register
 					await signIn("credentials", {
@@ -76,6 +75,7 @@ const AuthForm = () => {
 						password: data.password,
 						redirect: false,
 					});
+					router.push("/users");
 				}
 				toast.success("User created successfully 🎊");
 			} else {
@@ -86,7 +86,7 @@ const AuthForm = () => {
 				});
 
 				if (callback?.ok && !callback?.error) {
-					toast.success("Login successfully 🚀\n Redirecting...");
+					toast.success("Login successfully 🚀\n");
 					router.push("/users");
 				}
 				if (callback?.error) {

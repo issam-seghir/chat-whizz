@@ -24,8 +24,6 @@ const authRoutes = ["/"];
 
 export default withAuth(
 	async function middleware(req) {
-		console.log("middleware");
-
 		// Check the origin from the request
 		const origin = req.headers.get("origin") ?? "";
 		const isAllowedOrigin = allowedOrigins.includes(origin);
@@ -54,8 +52,6 @@ export default withAuth(
 		// 2. Check if the user is authenticated
 		const token = await getToken({ req });
 		const isAuth = !!token;
-		console.log("token:");
-		console.log(token);
 
 		// 2. Check if the current route is protected or public
 		const path = req.nextUrl.pathname;
@@ -66,6 +62,16 @@ export default withAuth(
 		}
 
 		if (!isAuth) {
+			// If the current page is already the login page, don't redirect
+			if (path === "/") {
+				return null;
+			}
+
+			// Check if the 'from' URL is a valid route
+			if (!isProtectedRoute) {
+				// If the 'from' URL is not valid, redirect to the default page
+				return NextResponse.redirect(new URL("/users", req.url));
+			}
 			const from = req.nextUrl.search ? path + req.nextUrl.search : path;
 			return NextResponse.redirect(new URL(`/?from=${encodeURIComponent(from)}`, req.url));
 		}

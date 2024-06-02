@@ -3,7 +3,7 @@ import { Button } from "@/components/button";
 import { Input } from "@/components/input";
 import axios, { AxiosError } from "axios";
 import { signIn, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
@@ -15,9 +15,12 @@ const AuthForm = () => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const session = useSession();
 	const router = useRouter();
+	const searchParams = useSearchParams();
+	const redirectUrl = searchParams.get("from")?.toString() || "/users";
+
 	// useEffect(() => {
 	// 	if (session.status === "authenticated") {
-	// 		router.push("/users");
+	// 		router.push(redirectUrl);
 	// 	}
 	// }, [session?.status, router]);
 
@@ -46,11 +49,11 @@ const AuthForm = () => {
 	const socialAction = async (action: string) => {
 		try {
 			setIsLoading(true);
-			const callback = await signIn(action, {callbackUrl: '/users', redirect: true });
+			const callback = await signIn(action, { callbackUrl: redirectUrl, redirect: true });
 
-			if (callback?.ok && !callback?.error || !callback) {
+			if ((callback?.ok && !callback?.error) || !callback) {
 				toast.success("Login successfully 🚀\n ");
-				router.push("/users");
+				router.push(redirectUrl);
 			}
 			if (callback?.error) {
 				throw new Error(callback.error);
@@ -75,7 +78,7 @@ const AuthForm = () => {
 						password: data.password,
 						redirect: false,
 					});
-					router.push("/users");
+					router.push(redirectUrl);
 				}
 				toast.success("User created successfully 🎊");
 			} else {
@@ -87,7 +90,7 @@ const AuthForm = () => {
 
 				if (callback?.ok && !callback?.error) {
 					toast.success("Login successfully 🚀\n");
-					router.push("/users");
+					router.push(redirectUrl);
 				}
 				if (callback?.error) {
 					throw new Error(callback.error);

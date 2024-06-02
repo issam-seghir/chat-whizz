@@ -3,7 +3,7 @@
 import useRoutes from "../app/hooks/useRoutes";
 
 import { useState } from "react";
-import { SideBarItem } from "./side-bar-item";
+import { SideBarItem } from "./desktop-side-bar-item";
 
 export function DesktopSideBar() {
     const routes = useRoutes();

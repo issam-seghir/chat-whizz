@@ -24,6 +24,8 @@ const authRoutes = ["/"];
 
 export default withAuth(
 	async function middleware(req) {
+		console.log("redirected from middlware");
+
 		// Check the origin from the request
 		const origin = req.headers.get("origin") ?? "";
 		const isAllowedOrigin = allowedOrigins.includes(origin);
@@ -62,6 +64,8 @@ export default withAuth(
 		}
 
 		if (!isAuth && !isAuthRoutes) {
+			console.log("redirected from middlware");
+
 			const from = req.nextUrl.search ? path + req.nextUrl.search : path;
 			return NextResponse.redirect(new URL(`/?from=${encodeURIComponent(from)}`, req.url));
 		}
@@ -83,5 +87,19 @@ export default withAuth(
 //! exclude all image types ,
 //! if you exclude only png then other image like SVG LOGO will not be displayed
 export const config = {
-	matcher: ["/((?!api|_next/static|_next/image|public|.*\\.*$).*)"],
+	matcher: [
+		/*
+		 * Match all request paths except for the ones starting with:
+		 * - api (API routes)
+		 * - _next/static (static files)
+		 * - _next/image (image optimization files)
+		 * - favicon.ico (favicon file)
+		 * - robots.txt (robots file)
+		 * - sitemap.xml (sitemap file)
+		 * - manifest.json (manifest file)
+		 * - *.png (image files)
+		 */
+
+		"/((?!.*\\.|api|_next/static|_next/image|favicon.ico|robots.txt|sitemap.xml|manifest.json|.*\\.png$).*)",
+	],
 };

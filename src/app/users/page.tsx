@@ -1,8 +1,7 @@
 "use client";
 
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { Button } from "../../components/button";
 import { EmptyState } from "../../components/empty-state";
 
 export default function Users() {
@@ -18,9 +17,6 @@ export default function Users() {
 	return (
 		<div className="hidden lg:block lg:pl-80 h-full">
 			<EmptyState />
-			<Button type="button" onClick={() => signOut({ callbackUrl: "/", redirect: true })}>
-				Sign Out
-			</Button>
 		</div>
 	);
 }

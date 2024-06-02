@@ -24,7 +24,7 @@ const AuthForm = () => {
 		if (session.status === "authenticated") {
 			router.push(redirectUrl);
 		}
-	}, [session?.status, router]);
+	}, [session?.status, router,redirectUrl]);
 
 	const {
 		register,

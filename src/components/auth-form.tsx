@@ -24,14 +24,14 @@ const AuthForm = () => {
 		defaultValues:
 			variant === "login"
 				? { email: "lorando@gmail.com", password: "123456" }
-				: { username: "", email: "", password: "" },
+				: { name: "", email: "", password: "" },
 	});
 
 	const toggleVariant = useCallback(() => {
 		setVariant(variant === "login" ? "register" : "login");
 		reset(
 			variant === "login"
-				? { username: "", email: "", password: "" }
+				? { name: "", email: "", password: "" }
 				: { email: "lorando@gmail.com", password: "123456" }
 		);
 	}, [variant, reset]);
@@ -41,7 +41,7 @@ const AuthForm = () => {
 			setIsLoading(true);
 			const callback = await signIn(action, { redirect: false });
 			console.log(callback);
-			
+
 			if (callback?.ok && !callback?.error) {
 				toast.success("Login successfully 🚀\n Redirecting...");
 			}
@@ -97,7 +97,7 @@ const AuthForm = () => {
 			<div className="bg-white px-4 py-8 shadow sm:rounded-lg sm:px-10">
 				<form className="space-y-6" onSubmit={handleSubmit(onsSubmit)}>
 					{variant === "register" && (
-						<Input id="username" label="username" type="text" register={register} errors={errors} />
+						<Input id="name" label="name" type="text" register={register} errors={errors} />
 					)}
 					<Input id="password" label="password" type="password" register={register} errors={errors} />
 

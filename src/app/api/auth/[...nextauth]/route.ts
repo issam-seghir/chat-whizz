@@ -79,7 +79,7 @@ export const authOptions  : AuthOptions= {
 				}
 			},
 		}),
-		
+
 
 	],
 } ;

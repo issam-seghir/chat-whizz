@@ -4,10 +4,10 @@ import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
 	try {
-		const { email, password, username } = await request.json();
+		const { email, password, name } = await request.json();
 
 		// Check for missing credentials
-		if (!email || !password || !username) {
+		if (!email || !password || !name) {
 			return NextResponse.json({ error: "Missing credentials" }, { status: 400 });
 		}
 
@@ -22,7 +22,7 @@ export async function POST(request: Request) {
 		const user = await prisma.user.create({
 			data: {
 				email,
-				username,
+				name,
 				hashedPassword,
 			},
 		});

@@ -1,4 +1,3 @@
-// useConverstaion hook with pusher
 import { useEffect, useState } from 'react';
 import { useParams } from "next/navigation";
 import { useMemo } from 'react';

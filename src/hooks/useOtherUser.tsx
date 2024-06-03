@@ -1,3 +1,4 @@
+"use client"
 import { useSession } from "next-auth/react";
 import { useMemo } from "react";
 import { FullConversation } from "../libs/types";
@@ -9,7 +10,7 @@ const useOtherUser = (conversation: FullConversation | { users: User[] }) => {
 
 	const otherUser = useMemo(() => {
 		if (!session?.user?.email) return null;
-		return conversation.users.filter((user) => user.email !== session?.user?.email);
+		return conversation?.users?.filter((user) => user.email !== session?.user?.email);
 	}, [session?.user?.email, conversation.users]);
 	return otherUser?.[0];
 };

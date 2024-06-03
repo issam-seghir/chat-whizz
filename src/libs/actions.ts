@@ -48,3 +48,38 @@ export async function getAllUsers() {
 		return [];
 	}
 }
+
+/**
+ ** Get All Conversations of the Current User
+ */
+export async function getAllConversation() {
+	try {
+		const currentUser = await getCurrentUser();
+		if (!currentUser?.id) {
+			return [];
+		}
+
+		const conversations = await prisma.conversation.findMany({
+			where: {
+				userIds: {
+					has: currentUser?.id,
+				},
+			},
+			include: {
+				users: true,
+				messages: {
+					include: {
+						sender: true,
+						seen: true,
+					},
+				},
+			},
+			orderBy: {
+				lastMessageAt: "desc",
+			},
+		});
+		return conversations;
+	} catch (error: any) {
+		return [];
+	}
+}

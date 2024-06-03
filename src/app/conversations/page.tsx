@@ -1,12 +1,12 @@
 "use client";
 import clsx from "clsx";
 
+import { EmptyState } from "@/components/empty-state";
 import useConversation from "@/hooks/useConverstaion";
-import {EmptyState} from "@/components/empty-state";
 export default function ConversationsPage() {
-	const { isOpen} = useConversation();
+	const { isOpen } = useConversation();
 	return (
-		<div>
+		<div className={clsx("lg:pl-80 h-full lg:block", isOpen ? "block" : "hidden")}>
 			<EmptyState />
 		</div>
 	);

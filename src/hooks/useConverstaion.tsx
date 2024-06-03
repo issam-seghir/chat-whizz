@@ -1,6 +1,5 @@
 // useConverstaion hook with pusher
 import { useEffect, useState } from 'react';
-// import Pusher from 'pusher-js';
 import { useParams } from "next/navigation";
 import { useMemo } from 'react';
 

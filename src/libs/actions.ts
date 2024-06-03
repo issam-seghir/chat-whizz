@@ -24,3 +24,27 @@ export async function getCurrentUser() {
 		return null;
 	}
 }
+
+/**
+ ** Get All users Except the Current User
+ */
+export async function getAllUsers() {
+	try {
+		const session = await getSession();
+		if (!session?.user?.email) return [];
+
+		const users = await prisma.user.findMany({
+			where: {
+				NOT: {
+					email: session?.user?.email,
+				},
+			},
+			orderBy: {
+				createdAt: "desc",
+			},
+		});
+		return users;
+	} catch (error: any) {
+		return [];
+	}
+}

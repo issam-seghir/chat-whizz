@@ -16,6 +16,8 @@ export default function MessageBox({ data, isLast }: MessageBoxProps) {
 		.filter((user) => user.email !== data?.sender?.email)
 		.map((user) => user.name)
 		.join(", ");
+		console.log(data.seen);
+
 	const continer = clsx("flex gap-3 p-4", isOwn && "justify-end");
 	const avatar = clsx("rounded-full w-fit h-fit", isOwn && "order-2");
 	const body = clsx("flex flex-col gap-2 ", isOwn && "items-end");
@@ -33,14 +35,20 @@ export default function MessageBox({ data, isLast }: MessageBoxProps) {
 				<div className="flex items-baseline justify-center gap-1">
 					<div className="text-sm text-gray-500">{data.sender.name}</div>
 					<div className="text-xs text-gray-400">{format(new Date(data.createdAt), "p")}</div>
-					<div>{isOwn && <div className="text-xs text-gray-400">{seenList}</div>}</div>
 				</div>
 				<div className={message}>
 					{data.image && (
-						<Image className="rounded-md object-cover cursor-pointer hover:scale-110 transition " src={data.image} width={240} height={240} alt="image" />
+						<Image
+							className="rounded-md object-cover cursor-pointer hover:scale-110 transition "
+							src={data.image}
+							width={240}
+							height={240}
+							alt="image"
+						/>
 					)}
 					{data.body}
 				</div>
+					<div>{isOwn && seenList.length > 0 && <div className="text-xs font-light text-gray-500"> Seen By {seenList}</div>}</div>
 			</div>
 		</div>
 	);

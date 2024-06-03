@@ -35,7 +35,7 @@ const AuthForm = () => {
 	} = useForm<FieldValues>({
 		defaultValues:
 			variant === "login"
-				? { email: "lorando@gmail.com", password: "123456" }
+				? { email: "test@gmail.com", password: "123456" }
 				: { name: "", email: "", password: "" },
 	});
 
@@ -44,7 +44,7 @@ const AuthForm = () => {
 		reset(
 			variant === "login"
 				? { name: "", email: "", password: "" }
-				: { email: "lorando@gmail.com", password: "123456" }
+				: { email: "test@gmail.com", password: "123456" }
 		);
 	}, [variant, reset]);
 

@@ -5,7 +5,7 @@ import { Url } from "next/dist/shared/lib/router/router";
 import Link from "next/link";
 import { IconType } from "react-icons";
 
-interface SideBarItemProps {
+interface DesktopSideBarItemProps {
 	label?: string;
 	name: string;
 	path?: string;
@@ -15,7 +15,7 @@ interface SideBarItemProps {
 	onClick?: () => void;
 }
 
-export function SideBarItem({ label, icon: Icon, href = "", onClick, active }: SideBarItemProps) {
+export function DesktopSideBarItem({ label, icon: Icon, href = "", onClick, active }: DesktopSideBarItemProps) {
 	const handleClick = () => {
 		if (onClick) {
 			return onClick();

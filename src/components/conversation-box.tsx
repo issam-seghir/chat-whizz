@@ -70,10 +70,14 @@ export function ConversationBox({ data ,selected }: ConversationBoxProps) {
 							</p>
 						)}
 					</div>
-					<p className={clsx(
-                        "truncate text-sm",
-                        hasSeen ? "text-gray-50" : "text-black font-medium"
-                    )}>{lastMessageText}</p>
+					<p
+						className={clsx(
+							"truncate text-sm",
+							hasSeen ? "text-gray-800" : "text-black font-semibold"
+						)}
+					>
+						{lastMessageText}
+					</p>
 				</div>
 			</div>
 		</div>

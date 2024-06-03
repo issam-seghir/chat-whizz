@@ -1,16 +1,16 @@
-import { getCurrentUser } from "@/libs/actions";
 import prisma from "@/libs/prismadb";
+import { getCurrentUser } from "@/libs/query";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
 	try {
 		const currentUser = await getCurrentUser();
-		if (!currentUser?.email || !currentUser?.id) {
+		if (!currentUser?.data?.email || !currentUser?.data?.id) {
 			return new NextResponse("Unauthorized", { status: 401 });
 		}
 
 		const { message, image, conversationId } = await request.json();
-		if (!message || !image) {
+		if (!message && !image) {
 			return new NextResponse("Invalid data", { status: 400 });
 		}
 		const newMessage = await prisma.message.create({
@@ -24,12 +24,12 @@ export async function POST(request: Request) {
 				},
 				sender: {
 					connect: {
-						id: currentUser.id,
+						id: currentUser?.data.id,
 					},
 				},
 				seen: {
 					connect: {
-						id: currentUser.id,
+						id: currentUser?.data.id,
 					},
 				},
 			},

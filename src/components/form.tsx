@@ -21,7 +21,7 @@ export function Form() {
 	});
 
 	const onSubmit = (data: FieldValues) => {
-		
+
 		setValue("message", "", { shouldValidate: true });
 		axios.post("/api/messages", {
 			...data,

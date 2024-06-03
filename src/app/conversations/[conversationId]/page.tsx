@@ -1,9 +1,7 @@
-import { Conversation } from "@prisma/client";
-import { getConversationById } from "@/libs/actions";
-import { getMessages } from "@/libs/actions";
+import { Body } from "@/components/body";
 import { EmptyState } from "@/components/empty-state";
 import { Header } from "@/components/header";
-import { Body } from "@/components/body";
+import { getConversationById, getMessages } from "@/libs/query";
 import { Form } from "../../../components/form";
 
 interface IParams {

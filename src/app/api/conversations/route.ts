@@ -1,12 +1,12 @@
-import { getCurrentUser } from "@/libs/actions";
 import prisma from "@/libs/prismadb";
+import { getCurrentUser } from "@/libs/query";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
 	try {
 		const currentUser = await getCurrentUser();
 		const { userId, isGroup, members, name } = await request.json();
-		if (!currentUser?.email || !currentUser?.id) {
+		if (!currentUser?.data?.email || !currentUser?.data?.id) {
 			return new NextResponse("Unauthorized", { status: 401 });
 		}
 
@@ -25,7 +25,7 @@ export async function POST(request: Request) {
 								id: member.value,
 							})),
 							{
-								id: currentUser.id,
+								id: currentUser?.data.id,
 							},
 						],
 					},
@@ -42,12 +42,12 @@ export async function POST(request: Request) {
 				OR: [
 					{
 						userIds: {
-							equals: [currentUser.id, userId],
+							equals: [currentUser?.data.id, userId],
 						},
 					},
 					{
 						userIds: {
-							equals: [userId, currentUser.id],
+							equals: [userId, currentUser?.data.id],
 						},
 					},
 				],
@@ -64,18 +64,17 @@ export async function POST(request: Request) {
 				users: {
 					connect: [
 						{
-							id: currentUser.id,
+							id: currentUser?.data.id,
 						},
 						{
 							id: userId,
 						},
 					],
 				},
-
 			},
-            include: {
-                users: true,
-            },
+			include: {
+				users: true,
+			},
 		});
         return NextResponse.json(newConversation);
 	} catch (error: any) {

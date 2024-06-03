@@ -1,6 +1,6 @@
+import { getAllUsers } from "@/libs/query";
 import { SideBar } from "../../components/side-bar";
-import { getAllUsers } from "@/libs/actions";
-import {UserList} from "../../components/user-list";
+import { UserList } from "../../components/user-list";
 
 
 export default async function UsersLayout({ children }: { children: React.ReactNode }) {

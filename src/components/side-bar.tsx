@@ -1,11 +1,12 @@
+import { getCurrentUser } from "@/libs/query";
+import { User } from "@prisma/client";
 import React from "react";
 import { DesktopSideBar } from "./desktop-side-bar";
-import {MobileFooter} from "./mobile-footer";
-import { getCurrentUser } from "@/libs/actions";
-import { User } from "@prisma/client";
+import { MobileFooter } from "./mobile-footer";
 
 export async function SideBar({ children }: { children: React.ReactNode }) {
-	const currentUser : User | null = await getCurrentUser();
+	const data = await getCurrentUser();
+	const currentUser: User | null = data?.data || null;
 	return (
 		<div className="h-full">
 			<DesktopSideBar currentUser={currentUser} />

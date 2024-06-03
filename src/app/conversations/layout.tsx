@@ -1,4 +1,4 @@
-import { getAllConversation } from "@/libs/actions";
+import { getAllConversation } from "@/libs/query";
 import { ConversationList } from "../../components/conversation-list";
 import { SideBar } from "../../components/side-bar";
 

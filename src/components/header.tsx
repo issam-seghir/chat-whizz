@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
 import useOtherUser from "@/hooks/useOtherUser";
 import { Conversation, User } from "@prisma/client";
 import Link from "next/link";
 import { useMemo } from "react";
-import { HiChevronLeft , HiEllipsisHorizontalCircle } from "react-icons/hi2";
+import { HiChevronLeft, HiEllipsisHorizontalCircle } from "react-icons/hi2";
 import { Avatar } from "./avatar";
 interface HeaderProps {
 	conversation: Conversation & {
@@ -27,11 +27,16 @@ export function Header({ conversation }: HeaderProps) {
 					<HiChevronLeft size={32} />
 				</Link>
 				<Avatar user={otherUser} />
-				<div>{conversation.name || otherUser?.name}</div>
-				<div className="text-sm font-light text-neutral-500">{statusText}</div>
+				<div className="flex flex-col">
+					<div>{conversation.name || otherUser?.name}</div>
+					<div className="text-sm font-light text-neutral-500">{statusText}</div>
+				</div>
 			</div>
-			<HiEllipsisHorizontalCircle size={32} onClick={()=>{}}
-      className="text-sky-500 cursor-pointer hover:text-sky-600 transition"/>
+			<HiEllipsisHorizontalCircle
+				size={32}
+				onClick={() => {}}
+				className="text-sky-500 cursor-pointer hover:text-sky-600 transition"
+			/>
 		</div>
 	);
 }

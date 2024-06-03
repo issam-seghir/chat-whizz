@@ -6,7 +6,7 @@ import { IconType } from "react-icons";
 import { HiChat } from "react-icons/hi";
 import { HiArrowLeftOnRectangle, HiUsers } from "react-icons/hi2";
 
-import useConversation from "@/app/hooks/useConverstaion";
+import useConversation from "@/hooks/useConverstaion";
 
 interface Route {
 	name: string;

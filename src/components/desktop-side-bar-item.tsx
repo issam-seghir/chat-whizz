@@ -15,7 +15,7 @@ interface DesktopSideBarItemProps {
 	onClick?: () => void;
 }
 
-export function DesktopSideBarItem({ label, icon: Icon, href = "", onClick, active }: DesktopSideBarItemProps) {
+export function DesktopSideBarItem({ label, icon: Icon, href = "", path="", onClick, active }: DesktopSideBarItemProps) {
 	const handleClick = () => {
 		if (onClick) {
 			return onClick();
@@ -24,7 +24,7 @@ export function DesktopSideBarItem({ label, icon: Icon, href = "", onClick, acti
 	return (
 		<li onClick={handleClick}>
 			<Link
-				href={href}
+				href={href || path}
 				className={clsx(
 					"group flex gap-x-3 rounded-md text-sm p-3 leading-6 font-semibold text-gray-500 hover:text-black hover:bg-gray-100",
 					active && "bg-gray-100 text-black"

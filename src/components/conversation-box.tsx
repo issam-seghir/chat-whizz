@@ -66,10 +66,14 @@ export function ConversationBox({ data ,selected }: ConversationBoxProps) {
 						<p className="text-md font-medium text-gray-900">{data.name || otherUser?.name}</p>
 						{lastMessage?.createdAt && (
 							<p className="text-xs font-light text-gray-400">
-								{format(new Date(lastMessage.createdAt),"p")}
+								{format(new Date(lastMessage.createdAt), "p")}
 							</p>
 						)}
 					</div>
+					<p className={clsx(
+                        "truncate text-sm",
+                        hasSeen ? "text-gray-50" : "text-black font-medium"
+                    )}>{lastMessageText}</p>
 				</div>
 			</div>
 		</div>

@@ -2,10 +2,8 @@
 import useConversation from "@/hooks/useConverstaion";
 import { FullConversation } from "@/libs/types";
 import clsx from "clsx";
-import { UserBox } from "./user-box";
 import { MdOutlineGroupAdd } from "react-icons/md";
 import { ConversationBox } from "./conversation-box";
-
 
 interface ConversationListProps {
 	initialItems: FullConversation[];
@@ -21,13 +19,11 @@ export function ConversationList({ initialItems }: ConversationListProps) {
 			)}
 		>
 			<div className="px-5">
-				<div className="flex justify-between mb-4 pt-4">
+				<div className="flex justify-between items-center mb-4 pt-4">
 					<div className="text-2xl font-bold text-neutral-800  py-4">Messages</div>
-				</div>
-				<div
-					className="rounded-full p-2 bg-gray-100 text-gray-600 cursor-pointer hover:opacity-75 transition"
-				>
-					<MdOutlineGroupAdd size={20}/>
+					<div className="rounded-full p-2 bg-gray-100 text-gray-600 cursor-pointer hover:opacity-75 transition">
+						<MdOutlineGroupAdd size={20} />
+					</div>
 				</div>
 				{initialItems.map((item) => (
 					<ConversationBox key={item.id} data={item} selected={conversationId === item.id} />

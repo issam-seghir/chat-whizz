@@ -21,6 +21,7 @@ export async function getCurrentUser() {
 		if (!currentUser) return null;
 		return currentUser;
 	} catch (error: any) {
+		console.log(error);
 		return null;
 	}
 }
@@ -45,6 +46,7 @@ export async function getAllUsers() {
 		});
 		return users;
 	} catch (error: any) {
+		console.log(error);
 		return [];
 	}
 }
@@ -80,6 +82,7 @@ export async function getAllConversation() {
 		});
 		return conversations;
 	} catch (error: any) {
+		console.log(error);
 		return [];
 	}
 }
@@ -92,6 +95,7 @@ export async function getConversationById(conversationId: string) {
 	try {
 		const currentUser = await getCurrentUser();
 		if (!currentUser?.id) {
+
 			return null;
 		}
 
@@ -105,6 +109,8 @@ export async function getConversationById(conversationId: string) {
 		});
 		return conversation;
 	} catch (error: any) {
+		console.log(error);
+
 		return null;
 	}
 }
@@ -134,6 +140,7 @@ export async function getMessages(conversationId: string) {
 		});
 		return messages;
 	} catch (error: any) {
+		console.log(error);
 		return [];
 	}
 }

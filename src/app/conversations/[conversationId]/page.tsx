@@ -5,13 +5,13 @@ import { EmptyState } from "@/components/empty-state";
 import { Header } from "@/components/header";
 
 interface IParams {
-    ConversationId:string
+	conversationId: string;
 }
 
 
 const ConversationId = async ({params} : {params:IParams})=>{
-    const conversation = await getConversationById(params.ConversationId);
-    const messages = await getMessages(params.ConversationId);
+    const conversation = await getConversationById(params.conversationId);
+    const messages = await getMessages(params.conversationId);
 
     if(!conversation){
         return (

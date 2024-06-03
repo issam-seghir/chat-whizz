@@ -83,3 +83,57 @@ export async function getAllConversation() {
 		return [];
 	}
 }
+
+/**
+ ** Get  Conversation By id
+ */
+
+export async function getConversationById(conversationId: string) {
+	try {
+		const currentUser = await getCurrentUser();
+		if (!currentUser?.id) {
+			return null;
+		}
+
+		const conversation = await prisma.conversation.findUnique({
+			where: {
+				id: conversationId,
+			},
+			include: {
+				users: true,
+			},
+		});
+		return conversation;
+	} catch (error: any) {
+		return null;
+	}
+}
+
+/**
+ ** Get  Messages
+ */
+
+export async function getMessages(conversationId: string) {
+	try {
+		const currentUser = await getCurrentUser();
+		if (!currentUser?.id) {
+			return [];
+		}
+
+		const messages = await prisma.message.findMany({
+			where: {
+				conversationId: conversationId,
+			},
+			include: {
+				sender: true,
+				seen: true,
+			},
+			orderBy: {
+				createdAt: "asc",
+			},
+		});
+		return messages;
+	} catch (error: any) {
+		return [];
+	}
+}

@@ -4,7 +4,7 @@ import { Dialog, DialogPanel, Transition, TransitionChild } from "@headlessui/re
 import { Conversation, User } from "@prisma/client";
 import { format } from "date-fns";
 import { Fragment, useMemo } from "react";
-import { IoClose } from "react-icons/io5";
+import { IoClose, IoTrash } from "react-icons/io5";
 import { Avatar } from "./avatar";
 interface ProfileDrawerProps {
 	data: Conversation & {
@@ -36,7 +36,7 @@ export function ProfileDrawer({ data, isOpen, onClose }: ProfileDrawerProps) {
 	}, [data]);
 	return (
 		<Transition show={isOpen} as={Fragment}>
-			<Dialog as="div" className="relative z-50" onClose={onClose} >
+			<Dialog as="div" className="relative z-50" onClose={onClose}>
 				<TransitionChild
 					as="div"
 					enter="ease-out duration-500"
@@ -49,8 +49,10 @@ export function ProfileDrawer({ data, isOpen, onClose }: ProfileDrawerProps) {
 					<div className="fixed inset-0 bg-black bg-opacity-40" />
 					<div className="fixed inset-0 overflow-hidden">
 						<div className="absolute inset-0 overflow-hidden">
-							<div className="fixed
-                             inset-y-0 right-0 flex max-w-full pl-10">
+							<div
+								className="fixed
+                             inset-y-0 right-0 flex max-w-full pl-10"
+							>
 								<TransitionChild
 									as={Fragment}
 									enter="transform transition ease-in-out duration-500"
@@ -74,15 +76,57 @@ export function ProfileDrawer({ data, isOpen, onClose }: ProfileDrawerProps) {
 													</div>
 												</div>
 											</div>
-                                            <div className="relative mt-6 flex-1 px-4 sm:px-6">
-                                                <div className="flex flex-col items-center">
-                                                    <div className="mb-2">
-                                                        <Avatar user={otherUser} />
-                                                    </div>
-                                                    <div className="text-lg font-semibold">{title}</div>
-                                                    <div className="text-sm font-light text-neutral-500">{statusText}</div>
-                                                </div>
-                                            </div>
+											<div className="relative mt-6 flex-1 px-4 sm:px-6">
+												<div className="flex flex-col items-center">
+													<div className="mb-2">
+														<Avatar user={otherUser} />
+													</div>
+													<div className="text-lg font-semibold">{title}</div>
+													<div className="text-sm font-light text-neutral-500">
+														{statusText}
+													</div>
+													<div className="flex gap-10 my-8">
+														<div
+															onClick={() => {}}
+															className="flex flex-col gap-3 items-center cursor-pointer hover:opacity-75"
+														>
+															<div className="h-10 w-10 bg-neutral-100 rounded-full flex items-center justify-center">
+																<IoTrash size={20} />
+															</div>
+															<div className="text-sm font-light text-neutral-600 ">
+																Delete
+															</div>
+														</div>
+													</div>
+												</div>
+												<div className="w-full pb-5 pt-5 sm:px-0 sm:pt-0">
+													<dl className="space-y-8 px-4 sm:space-y-6 sm:px-6">
+														{!data.isGroup && (
+															<div>
+																<dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0">
+																	Email
+																</dt>
+																<dd className="mt-1 text-sm text-gray-900 sm:col-span-2">
+																	{otherUser?.email}
+																</dd>
+															</div>
+														)}
+														{!data.isGroup && (
+															<>
+																<hr />
+																<div>
+																	<dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0">
+																		Joined
+																	</dt>
+																	<dd className="mt-1 text-sm  text-gray-900 sm:col-span-2 ">
+																		<time dateTime={joinedDate}>{joinedDate}</time>
+																	</dd>
+																</div>
+															</>
+														)}
+													</dl>
+												</div>
+											</div>
 										</div>
 									</DialogPanel>
 								</TransitionChild>

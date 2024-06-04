@@ -27,7 +27,7 @@ export function Body({ initialMessages }: BodyProps) {
 			{messages.map((message, i) => (
 				<MessageBox key={message.id} isLast={i === messages.length - 1} data={message} />
 			))}
-			<div ref={messageRef} className="pt-24" />
+			<div ref={messageRef} className="pt-8" />
 		</div>
 	);
 }

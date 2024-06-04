@@ -19,6 +19,8 @@ const corsOptions = {
 const protectedRoutes = [
 	"/users",
 	"/users/:path*", //  target all paths under /users
+	"/conversations",
+	"/conversations/:path*", //  target all paths under /conversations
 ];
 const authRoutes = ["/"];
 

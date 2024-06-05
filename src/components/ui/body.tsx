@@ -39,10 +39,18 @@ export function Body({ initialMessages }: BodyProps) {
 			});
 			scrollToBottom();
 		};
+		const messageUpdateHandler = (newMessage: FullMessage) => {
+			setMessages((current) => current.map((currentMessage) => {
+				if(currentMessage.id === newMessage.id) return newMessage
+				return currentMessage
+			}));
+		};
 		pusherClient.bind("messages:new", messageHandler);
+		pusherClient.bind("messages:update", messageUpdateHandler);
 		return () => {
 			pusherClient.unsubscribe(conversationId);
 			pusherClient.unbind("messages:new", messageHandler);
+			pusherClient.unbind("messages:update", messageUpdateHandler);
 		};
 	}, [conversationId]);
 

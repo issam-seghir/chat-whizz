@@ -7,6 +7,7 @@ import { Fragment, useMemo, useState } from "react";
 import { IoClose, IoTrash } from "react-icons/io5";
 import { ConfirmModel } from "../models/confirm-model";
 import { Avatar } from "../ui/avatar";
+import { GroupAvatar } from "../ui/group-avatar";
 
 
 interface ProfileDrawerProps {
@@ -84,18 +85,22 @@ export function ProfileDrawer({ data, isOpen, onClose }: ProfileDrawerProps) {
 											<div className="relative mt-6 flex-1 px-4 sm:px-6">
 												<div className="flex flex-col items-center">
 													<div className="mb-2">
-														<Avatar user={otherUser} />
+														{data.isGroup ? (
+															<GroupAvatar users={data.users} />
+														) : (
+															<Avatar user={otherUser} />
+														)}
 													</div>
 													<div className="text-lg font-semibold">{title}</div>
 													<div className="text-sm font-light text-neutral-500">
 														{statusText}
 													</div>
 													<div className="flex gap-10 my-8">
-														<div onClick={() => setConfirmOpen(true)} className="flex flex-col gap-3 items-center cursor-pointer hover:opacity-75">
-															<div
-
-																className="h-10 w-10 bg-neutral-100 rounded-full flex items-center justify-center"
-															>
+														<div
+															onClick={() => setConfirmOpen(true)}
+															className="flex flex-col gap-3 items-center cursor-pointer hover:opacity-75"
+														>
+															<div className="h-10 w-10 bg-neutral-100 rounded-full flex items-center justify-center">
 																<IoTrash size={20} />
 															</div>
 															<div className="text-sm font-light text-neutral-600 ">

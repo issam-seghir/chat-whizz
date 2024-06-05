@@ -8,6 +8,7 @@ import { IoClose, IoTrash } from "react-icons/io5";
 import { Avatar } from "./avatar";
 import { Model } from "./model";
 import { useState } from "react";
+import { ConfirmModel } from "./confirm-model";
 
 
 interface ProfileDrawerProps {
@@ -20,7 +21,7 @@ interface ProfileDrawerProps {
 
 export function ProfileDrawer({ data, isOpen, onClose }: ProfileDrawerProps) {
 	const otherUser = useOtherUser(data);
-	const [isModelOpen , setIsModelOpen] = useState(false)
+	const [confirmOpen , setConfirmOpen] = useState(false)
 	const joinedDate = useMemo(() => {
 		if (otherUser?.createdAt) {
 			const date = new Date(otherUser.createdAt);
@@ -41,11 +42,7 @@ export function ProfileDrawer({ data, isOpen, onClose }: ProfileDrawerProps) {
 	}, [data]);
 	return (
 		<Transition show={isOpen} as={Fragment}>
-			<Model isOpen={isModelOpen} onClose={() => setIsModelOpen(false)}>
-				<div className="bg-white p-5 ">
-					<p>Hello model </p>
-				</div>
-			</Model>
+			<ConfirmModel isOpen={confirmOpen} onClose={() => setConfirmOpen(false)} />
 			<Dialog as="div" className="relative z-50" onClose={onClose}>
 				<TransitionChild
 					as="div"
@@ -96,7 +93,7 @@ export function ProfileDrawer({ data, isOpen, onClose }: ProfileDrawerProps) {
 														{statusText}
 													</div>
 													<div className="flex gap-10 my-8">
-														<div onClick={() => setIsModelOpen(true)} className="flex flex-col gap-3 items-center cursor-pointer hover:opacity-75">
+														<div onClick={() => setConfirmOpen(true)} className="flex flex-col gap-3 items-center cursor-pointer hover:opacity-75">
 															<div
 
 																className="h-10 w-10 bg-neutral-100 rounded-full flex items-center justify-center"

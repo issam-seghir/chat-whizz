@@ -5,17 +5,20 @@ import clsx from "clsx";
 import { useState } from "react";
 import { MdOutlineGroupAdd } from "react-icons/md";
 import { ConversationBox } from "./conversation-box";
+import { GroupChatModel } from "../models/group-chat-model";
+import { User } from "@prisma/client";
 
 interface ConversationListProps {
 	initialItems: FullConversation[];
+	users: User[];
 }
 
-export function ConversationList({ initialItems }: ConversationListProps) {
+export function ConversationList({ users,initialItems }: ConversationListProps) {
 	const { conversationId, isOpen } = useConversation();
 	const [isModelOpen,setIsModelOpen]  = useState(false)
 	return (
 		<>
-			<GroupChatModel isOpen={isOpen} onClose={() => setIsModelOpen(false)} />
+			<GroupChatModel users={users} isOpen={isModelOpen} onClose={() => setIsModelOpen(false)} />
 
 			<aside
 				className={clsx(

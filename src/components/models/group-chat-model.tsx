@@ -16,10 +16,10 @@ import { Model } from "./model";
 interface GroupChatModelProps {
 	isOpen?: boolean;
 	onClose: () => void;
-	currentUser: User | null;
+	users: User[];
 }
 
-export function GroupChatModel({ isOpen, onClose, currentUser }: SettingsModelProps) {
+export function GroupChatModel({ users, isOpen, onClose }: GroupChatModelProps) {
 	const router = useRouter();
 	const { conversationId } = useConversation();
 	const [isLoading, setIsLoading] = useState(false);
@@ -33,11 +33,11 @@ export function GroupChatModel({ isOpen, onClose, currentUser }: SettingsModelPr
 		formState: { errors },
 	} = useForm<FieldValues>({
 		defaultValues: {
-			name: currentUser?.name,
-			image: currentUser?.image,
+			name: "",
+			members: [],
 		},
 	});
-	const image = watch("image");
+	const members = watch("members");
 
 	const handleUpload = (result: any) => {
 		setValue("image", result?.info?.secure_url, {
@@ -48,7 +48,7 @@ export function GroupChatModel({ isOpen, onClose, currentUser }: SettingsModelPr
 	const onSubmit: SubmitHandler<FieldValues> = async (data) => {
 		try {
 			setIsLoading(true);
-			const response = await axios.post("/api/settings", data);
+			const response = await axios.post("/api/conversations", {...data,isGroup:true});
 			if (response) {
 				router.refresh();
 				onClose();
@@ -83,7 +83,7 @@ export function GroupChatModel({ isOpen, onClose, currentUser }: SettingsModelPr
 								Photo
 							</label>
 							<div className="mt-2 flex items-center gap-x-3">
-								<Image
+								{/* <Image
 									alt="profile"
 									width="48"
 									height="48"
@@ -98,7 +98,7 @@ export function GroupChatModel({ isOpen, onClose, currentUser }: SettingsModelPr
 									<Button disabled={isLoading} secondary>
 										Change
 									</Button>
-								</CldUploadButton>
+								</CldUploadButton> */}
 							</div>
 						</div>
 					</div>

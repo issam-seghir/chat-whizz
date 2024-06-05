@@ -1,7 +1,7 @@
 "use client";
 import clsx from "clsx";
 
-import { EmptyState } from "@/components/empty-state";
+import { EmptyState } from "@/components/ui/empty-state";
 import useConversation from "@/hooks/useConverstaion";
 export default function ConversationsPage() {
 	const { isOpen } = useConversation();

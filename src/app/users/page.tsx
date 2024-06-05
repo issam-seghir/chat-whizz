@@ -2,7 +2,7 @@
 
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { EmptyState } from "../../components/empty-state";
+import { EmptyState } from "../../components/ui/empty-state";
 
 export default function Users() {
 	const router = useRouter();

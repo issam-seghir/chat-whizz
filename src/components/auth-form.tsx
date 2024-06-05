@@ -1,14 +1,13 @@
 "use client";
-import { Button } from "@/components/button";
-import { Input } from "@/components/input";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import axios, { AxiosError } from "axios";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { BsGithub, BsGoogle } from "react-icons/bs";
-import { authOptions } from "../app/api/auth/[...nextauth]/route";
 
 type Variant = "login" | "register";
 

@@ -1,5 +1,5 @@
 import { getAllUsers } from "@/libs/query";
-import { SideBar } from "../../components/side-bar";
+import { SideBar } from "../../components/layout/side-bar";
 import { UserList } from "../../components/user-list";
 
 

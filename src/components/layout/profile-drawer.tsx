@@ -3,12 +3,10 @@ import useOtherUser from "@/hooks/useOtherUser";
 import { Dialog, DialogPanel, Transition, TransitionChild } from "@headlessui/react";
 import { Conversation, User } from "@prisma/client";
 import { format } from "date-fns";
-import { Fragment, useMemo } from "react";
+import { Fragment, useMemo, useState } from "react";
 import { IoClose, IoTrash } from "react-icons/io5";
-import { Avatar } from "./avatar";
-import { Model } from "./model";
-import { useState } from "react";
-import { ConfirmModel } from "./confirm-model";
+import { ConfirmModel } from "../models/confirm-model";
+import { Avatar } from "../ui/avatar";
 
 
 interface ProfileDrawerProps {

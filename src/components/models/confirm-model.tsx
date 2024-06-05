@@ -1,14 +1,13 @@
 "use client"
+import { Button } from "@/components/ui/button";
 import useConversation from "@/hooks/useConverstaion";
+import { DialogTitle } from "@headlessui/react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { toast } from "react-hot-toast";
 import { FiAlertTriangle } from "react-icons/fi";
 import { Model } from "./model";
-import { DialogTitle } from "@headlessui/react";
-import { Button } from "@/components/button";
-import { User } from "@prisma/client";
 
 interface ConfirmModelProps {
 	isOpen?: boolean;

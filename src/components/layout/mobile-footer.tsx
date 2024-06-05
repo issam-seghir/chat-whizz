@@ -1,10 +1,10 @@
 "use client";
 
-import useRoutes from "../hooks/useRoutes";
+import useRoutes from "../../hooks/useRoutes";
 
 import useConversation from "@/hooks/useConverstaion";
-import { MobileSideBarItem } from "./mobile-side-bar-item";
 import { User } from "@prisma/client";
+import { MobileSideBarItem } from "./mobile-side-bar-item";
 export function MobileFooter({ currentUser} : { currentUser: User | null}) {
 	const routes = useRoutes();
 	const { isOpen } = useConversation();

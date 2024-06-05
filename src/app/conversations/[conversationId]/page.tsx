@@ -1,6 +1,6 @@
-import { Body } from "@/components/body";
-import { EmptyState } from "@/components/empty-state";
-import { Header } from "@/components/header";
+import { Header } from "@/components/layout/header";
+import { Body } from "@/components/ui/body";
+import { EmptyState } from "@/components/ui/empty-state";
 import { getConversationById, getMessages } from "@/libs/query";
 import { Form } from "../../../components/form";
 

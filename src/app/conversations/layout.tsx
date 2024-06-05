@@ -1,6 +1,6 @@
 import { getAllConversation } from "@/libs/query";
-import { ConversationList } from "../../components/conversation-list";
-import { SideBar } from "../../components/side-bar";
+import { ConversationList } from "../../components/conversation/conversation-list";
+import { SideBar } from "../../components/layout/side-bar";
 
 export default async function ConversationLayout({ children }: { children: React.ReactNode }) {
 	const conversations = await getAllConversation();

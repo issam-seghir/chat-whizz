@@ -1,13 +1,11 @@
 import { FullConversation } from "@/libs/types";
-import axios from "axios";
+import clsx from "clsx";
+import { format } from "date-fns";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
-import { Avatar } from "./avatar";
-import { Conversation, Message, User } from "@prisma/client";
-import { useSession } from "next-auth/react";
-import {format} from "date-fns";
-import clsx from "clsx";
-import useOtherUser from "../hooks/useOtherUser";
+import useOtherUser from "../../hooks/useOtherUser";
+import { Avatar } from "../ui/avatar";
 
 
 interface ConversationBoxProps {

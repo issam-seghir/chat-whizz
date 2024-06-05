@@ -5,13 +5,13 @@ import { Input } from "@/components/input";
 import useConversation from "@/hooks/useConverstaion";
 import { User } from "@prisma/client";
 import axios from "axios";
+import { CldUploadButton } from "next-cloudinary";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { Model } from "./model";
-import { CldUploadButton } from "next-cloudinary";
 
 interface SettingsModelProps {
 	isOpen?: boolean;
@@ -55,7 +55,7 @@ export function SettingsModel({ isOpen, onClose, currentUser }: SettingsModelPro
 			}
 		} catch (error: any) {
 			console.log(error);
-			toast.error(error.response?.data?.error);
+			toast.error("something wrong");
 		} finally {
 			setIsLoading(false);
 		}
@@ -64,11 +64,11 @@ export function SettingsModel({ isOpen, onClose, currentUser }: SettingsModelPro
 	return (
 		<Model isOpen={isOpen} onClose={onClose}>
 			<form onSubmit={handleSubmit(onSubmit)}>
-				<div className="space-y-12">
+				<div className="text-left space-y-12">
 					<div className="border-b border-gray-900/10 pb-12">
 						<h2 className="text-base font-semibold leading-7 text-gray-900">Profile</h2>
 						<p className="mt-1 text-sm leading-6 text-gray-600"> Edit your public information</p>
-						<div className="mt-10 felx flex-col gap-y-8">
+						<div className="mt-10 mb-4 flex flex-col gap-y-8">
 							<Input
 								disabled={isLoading}
 								label="Name"
@@ -82,7 +82,7 @@ export function SettingsModel({ isOpen, onClose, currentUser }: SettingsModelPro
 							<label className="block leading-6 font-medium text-sm text-gray-900" htmlFor="">
 								Photo
 							</label>
-							<div className="mt-2 items-center gap-x-3">
+							<div className="mt-2 flex items-center gap-x-3">
 								<Image
 									alt="profile"
 									width="48"
@@ -95,21 +95,21 @@ export function SettingsModel({ isOpen, onClose, currentUser }: SettingsModelPro
 									onSuccess={handleUpload}
 									uploadPreset="fyjlpc4m"
 								>
-									<Button  disabled={isLoading} secondary >
+									<Button disabled={isLoading} secondary>
 										Change
 									</Button>
 								</CldUploadButton>
 							</div>
 						</div>
 					</div>
-			<div className="mt-6  flex items-center justify-end gap-x-6">
-				<Button disabled={isLoading} secondary onClick={onClose}>
-					Cancel
-				</Button>
-				<Button type="submit" disabled={isLoading} >
-					Save
-				</Button>
-			</div>
+					<div className="mt-6  flex items-center justify-end gap-x-6">
+						<Button disabled={isLoading} secondary onClick={onClose}>
+							Cancel
+						</Button>
+						<Button type="submit" disabled={isLoading}>
+							Save
+						</Button>
+					</div>
 				</div>
 			</form>
 		</Model>

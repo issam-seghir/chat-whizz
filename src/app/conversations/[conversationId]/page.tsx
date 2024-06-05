@@ -2,7 +2,7 @@ import { Header } from "@/components/layout/header";
 import { Body } from "@/components/ui/body";
 import { EmptyState } from "@/components/ui/empty-state";
 import { getConversationById, getMessages } from "@/libs/query";
-import { Form } from "../../../components/form";
+import { Form } from "../../../components/layout/form";
 
 interface IParams {
 	conversationId: string;

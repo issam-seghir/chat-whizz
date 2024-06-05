@@ -9,7 +9,6 @@ import { ConfirmModel } from "../models/confirm-model";
 import { Avatar } from "../ui/avatar";
 import { GroupAvatar } from "../ui/group-avatar";
 
-
 interface ProfileDrawerProps {
 	data: Conversation & {
 		users: User[];
@@ -20,7 +19,7 @@ interface ProfileDrawerProps {
 
 export function ProfileDrawer({ data, isOpen, onClose }: ProfileDrawerProps) {
 	const otherUser = useOtherUser(data);
-	const [confirmOpen , setConfirmOpen] = useState(false)
+	const [confirmOpen, setConfirmOpen] = useState(false);
 	const joinedDate = useMemo(() => {
 		if (otherUser?.createdAt) {
 			const date = new Date(otherUser.createdAt);
@@ -111,6 +110,16 @@ export function ProfileDrawer({ data, isOpen, onClose }: ProfileDrawerProps) {
 												</div>
 												<div className="w-full pb-5 pt-5 sm:px-0 sm:pt-0">
 													<dl className="space-y-8 px-4 sm:space-y-6 sm:px-6">
+														{data.isGroup && (
+															<div>
+																<dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0">
+																	Emails
+																</dt>
+																<dd className="mt-1 text-sm text-gray-900 sm:col-span-2">
+																	{data?.users.map((user) => user.email).join(", \n")}
+																</dd>
+															</div>
+														)}
 														{!data.isGroup && (
 															<div>
 																<dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0">

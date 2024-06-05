@@ -5,7 +5,7 @@ import useConversation from "@/hooks/useConverstaion";
 import axios from "axios";
 import { FieldValues, useForm } from "react-hook-form";
 import { HiPaperAirplane, HiPhoto } from "react-icons/hi2";
-import MessageInput from "./conversation/message-input";
+import MessageInput from "../conversation/message-input";
 export function Form() {
 	const { conversationId } = useConversation();
 

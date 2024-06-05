@@ -35,7 +35,7 @@ export function Model({ isOpen, onClose, children }: ModelProps) {
                             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                         >
-                            <DialogPanel className="relative transform overflow-hidden bg-white rounded-lg shadow-xl transition-all pb-4 px-4 w-full sm:my-8 sm:w-full sm:w-lg sm:p-6">
+                            <DialogPanel className="relative transform overflow-hidden bg-white rounded-lg shadow-xl transition-all pb-4 px-4 w-full sm:my-8 sm:w-[32rem] sm:p-6">
                                 <div className="absolute right-0 top-0 hidden pr-4 pt-4 sm:block z-10">
                                     <button
                                         type="button"

@@ -4,7 +4,7 @@ import { SideBar } from "../../components/layout/side-bar";
 
 export default async function ConversationLayout({ children }: { children: React.ReactNode }) {
 	const conversations = await getAllConversation();
-	const users = getAllUsers();
+	const users = await getAllUsers();
 	return (
 		<SideBar>
 			<div className="h-full">

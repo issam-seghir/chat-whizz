@@ -6,48 +6,44 @@ import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
 import useOtherUser from "../../hooks/useOtherUser";
 import { Avatar } from "../ui/avatar";
-
+import { GroupAvatar } from "../ui/group-avatar";
 
 interface ConversationBoxProps {
 	data: FullConversation;
 	selected?: boolean;
 }
 
-export function ConversationBox({ data ,selected }: ConversationBoxProps) {
+export function ConversationBox({ data, selected }: ConversationBoxProps) {
 	const router = useRouter();
-    const otherUser= useOtherUser(data)
-    const session = useSession();
+	const otherUser = useOtherUser(data);
+	const session = useSession();
 
-    const handleClick = useCallback(
-      () => {
-      router.push(`/conversations/${data.id}`)
-      },
-      [data.id,router],
-    )
+	const handleClick = useCallback(() => {
+		router.push(`/conversations/${data.id}`);
+	}, [data.id, router]);
 
-    const lastMessage = useMemo(() => {
-        const messages = data.messages || [];
-        return messages[messages.length - 1]
-    }, [data.messages])
+	const lastMessage = useMemo(() => {
+		const messages = data.messages || [];
+		return messages[messages.length - 1];
+	}, [data.messages]);
 
-    const userEmail = useMemo(() => {
-        return session.data?.user?.email;
-    }, [session.data?.user?.email])
+	const userEmail = useMemo(() => {
+		return session.data?.user?.email;
+	}, [session.data?.user?.email]);
 
-
-    const hasSeen = useMemo(() => {
+	const hasSeen = useMemo(() => {
 		if (!lastMessage) return false;
 
 		const seenArray = lastMessage.seen || [];
 		if (!userEmail) return false;
 		return seenArray.filter((user) => user.email === userEmail).length !== 0;
-	}, [userEmail,lastMessage]);
+	}, [userEmail, lastMessage]);
 
-    const lastMessageText = useMemo(() => {
-        if(lastMessage?.image) return "Sent an image"
-        if (lastMessage?.body) return lastMessage.body
-        return "Started a Conversation"
-    }, [lastMessage])
+	const lastMessageText = useMemo(() => {
+		if (lastMessage?.image) return "Sent an image";
+		if (lastMessage?.body) return lastMessage.body;
+		return "Started a Conversation";
+	}, [lastMessage]);
 
 	return (
 		<div
@@ -57,7 +53,7 @@ export function ConversationBox({ data ,selected }: ConversationBoxProps) {
 				selected ? "bg-neutral-100" : "bg-white"
 			)}
 		>
-			<Avatar user={otherUser} />
+			{data.isGroup ? <GroupAvatar users={data.users} /> : <Avatar user={otherUser} />}
 			<div className="min-w-0 flex-1">
 				<div className="focus:outline-none">
 					<div className="flex justify-between items-center mb-1">
@@ -68,12 +64,7 @@ export function ConversationBox({ data ,selected }: ConversationBoxProps) {
 							</p>
 						)}
 					</div>
-					<p
-						className={clsx(
-							"truncate text-sm",
-							hasSeen ? "text-gray-800" : "text-black font-semibold"
-						)}
-					>
+					<p className={clsx("truncate text-sm", hasSeen ? "text-gray-800" : "text-black font-semibold")}>
 						{lastMessageText}
 					</p>
 				</div>

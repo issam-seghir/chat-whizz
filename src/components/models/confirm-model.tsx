@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { toast } from "react-hot-toast";
 import { FiAlertTriangle } from "react-icons/fi";
-import { Model } from "./model";
+import { Model } from "../ui/model";
 
 interface ConfirmModelProps {
 	isOpen?: boolean;

@@ -4,7 +4,7 @@ import useConversation from "@/hooks/useConverstaion";
 import { FullMessage } from "@/libs/types";
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
-import MessageBox from "../message-box";
+import MessageBox from "../conversation/message-box";
 interface BodyProps {
 	initialMessages: FullMessage[];
 }

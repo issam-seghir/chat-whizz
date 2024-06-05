@@ -5,13 +5,11 @@ import { Input } from "@/components/ui/input";
 import useConversation from "@/hooks/useConverstaion";
 import { User } from "@prisma/client";
 import axios from "axios";
-import { CldUploadButton } from "next-cloudinary";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import { Model } from "./model";
+import { Model } from "../ui/model";
 import Select from "../ui/select";
 
 interface GroupChatModelProps {

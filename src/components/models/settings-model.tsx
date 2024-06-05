@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import { Model } from "./model";
+import { Model } from "../ui/model";
 
 interface SettingsModelProps {
 	isOpen?: boolean;

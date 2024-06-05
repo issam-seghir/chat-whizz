@@ -6,13 +6,14 @@ import Link from "next/link";
 import { IconType } from "react-icons";
 
 interface MobileSideBarItemProps {
+	path?: string;
 	href?: Url;
 	icon: IconType;
 	active?: boolean;
 	onClick?: () => void;
 }
 
-export function MobileSideBarItem({ icon: Icon, href = "", onClick, active }: MobileSideBarItemProps) {
+export function MobileSideBarItem({ icon: Icon, href = "",path="", onClick, active }: MobileSideBarItemProps) {
 	const handleClick = () => {
 		if (onClick) {
 			return onClick();
@@ -21,7 +22,7 @@ export function MobileSideBarItem({ icon: Icon, href = "", onClick, active }: Mo
 	return (
 		<Link
 			onClick={handleClick}
-			href={href}
+			href={href || path}
 			className={clsx(
 				"group flex gap-x-3  text-sm p-4 leading-6 font-semibold w-full justify-center text-gray-500 hover:text-black hover:bg-gray-100",
 				active && "bg-gray-100 text-black"

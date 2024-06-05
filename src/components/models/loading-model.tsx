@@ -7,10 +7,10 @@ import { ClipLoader } from "react-spinners";
 
 
 
-export  function Loading() {
+export  function LoadingModel() {
   return (
 		<Transition show as={Fragment}>
-			<Dialog as="div" className="relative z-50" onClose={()=>()}>
+			<Dialog as="div" className="relative z-50" onClose={() => {}}>
 				<TransitionChild
 					as="div"
 					enter="ease-out duration-300"
@@ -24,7 +24,9 @@ export  function Loading() {
 				</TransitionChild>
 				<div className="fixed inset-0 overflow-hidden z-0">
 					<div className="flex min-h-full items-center justify-center p-4 text-center">
-						<DialogPanel><ClipLoader size={40} color="#0284c7"/></DialogPanel>
+						<DialogPanel>
+							<ClipLoader size={40} color="#0284c7" />
+						</DialogPanel>
 					</div>
 				</div>
 			</Dialog>

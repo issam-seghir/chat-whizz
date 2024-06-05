@@ -1,10 +1,13 @@
 "use client";
 
 import useConversation from "@/hooks/useConverstaion";
+import { pusherClient } from "@/libs/pusher";
 import { FullMessage } from "@/libs/types";
 import axios from "axios";
+import { find } from "lodash";
 import { useEffect, useRef, useState } from "react";
 import MessageBox from "../conversation/message-box";
+
 interface BodyProps {
 	initialMessages: FullMessage[];
 }
@@ -20,6 +23,27 @@ export function Body({ initialMessages }: BodyProps) {
 	}, [messages]);
 	useEffect(() => {
 		axios.post(`/api/conversations/${conversationId}/seen`);
+	}, [conversationId]);
+
+	useEffect(() => {
+		pusherClient.subscribe(conversationId);
+		scrollToBottom();
+
+		const messageHandler = (message: FullMessage) => {
+			axios.post(`/api/conversations/${conversationId}/seen`);
+			setMessages((current) => {
+				if (find(current, { id: message.id })) {
+					return current;
+				}
+				return [...current, message];
+			});
+			scrollToBottom();
+		};
+		pusherClient.bind("messages:new", messageHandler);
+		return () => {
+			pusherClient.unsubscribe(conversationId);
+			pusherClient.unbind("messages:new", messageHandler);
+		};
 	}, [conversationId]);
 
 	return (

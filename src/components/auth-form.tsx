@@ -4,7 +4,7 @@ import { Input } from "@/components/input";
 import axios, { AxiosError } from "axios";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useState,useEffect } from "react";
+import { useCallback, useState, useEffect } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { BsGithub, BsGoogle } from "react-icons/bs";
@@ -24,7 +24,7 @@ const AuthForm = () => {
 		if (session.status === "authenticated") {
 			router.push(redirectUrl);
 		}
-	}, [session?.status, router,redirectUrl]);
+	}, [session?.status, router, redirectUrl]);
 
 	const {
 		register,

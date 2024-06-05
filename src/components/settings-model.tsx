@@ -1,37 +1,65 @@
-"use client"
+"use client";
+
+import { Button } from "@/components/button";
 import useConversation from "@/hooks/useConverstaion";
+import { DialogTitle } from "@headlessui/react";
+import { User } from "@prisma/client";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useCallback, useState } from "react";
+import { useState } from "react";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { FiAlertTriangle } from "react-icons/fi";
 import { Model } from "./model";
-import { DialogTitle } from "@headlessui/react";
-import { Button } from "@/components/button";
-import { User } from "@prisma/client";
 
-interface ConfirmModelProps {
+interface SettingsModelProps {
 	isOpen?: boolean;
 	onClose: () => void;
+	currentUser: User | null;
 }
 
-export function ConfirmModel({ isOpen, onClose  }: ConfirmModelProps) {
+export function SettingsModel({ isOpen, onClose, currentUser }: SettingsModelProps) {
 	const router = useRouter();
 	const { conversationId } = useConversation();
 	const [isLoading, setIsLoading] = useState(false);
 
-	const onDelete = useCallback(() => {
-		setIsLoading(true);
-		axios
-			.delete(`/api/conversations/${conversationId}`)
-			.then(() => {
-				onClose();
-				router.push("/conversations");
+	const {
+		register,
+		reset,
+		handleSubmit,
+		setValue,
+		watch,
+		formState: { errors },
+	} = useForm<FieldValues>({
+		defaultValues: {
+			name: currentUser?.name,
+			image: currentUser?.image,
+		},
+	});
+	const image = watch("image");
+
+	const handleUpload = (result: any) => {
+		setValue("image", result?.info?.secure_url, {
+			shouldValidate: true,
+		});
+	};
+
+	const onsSubmit: SubmitHandler<FieldValues> = async (data) => {
+		try {
+			setIsLoading(true);
+			const response = await axios.post("/api/settings", data);
+			if (response) {
 				router.refresh();
-			})
-			.catch(() => toast.error("something went wrong !"))
-			.finally(() => setIsLoading(false));
-	}, [conversationId, router, onClose]);
+				onClose();
+			}
+		} catch (error: any) {
+			console.log(error);
+			toast.error(error.response?.data?.error);
+		} finally {
+			setIsLoading(false);
+		}
+	};
+
 	return (
 		<Model isOpen={isOpen} onClose={onClose}>
 			<div className="sm:flex sm:items-start">
@@ -48,12 +76,7 @@ export function ConfirmModel({ isOpen, onClose  }: ConfirmModelProps) {
 				</div>
 			</div>
 			<div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
-				<Button
-					className="ml-4"
-					disabled={isLoading}
-					danger
-					onClick={onDelete}
-				>
+				<Button className="ml-4" disabled={isLoading} danger onClick={onDelete}>
 					Delete
 				</Button>
 				<Button disabled={isLoading} secondary onClick={onClose}>

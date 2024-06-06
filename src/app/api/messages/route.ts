@@ -2,6 +2,7 @@ import prisma from "@/libs/prismadb";
 import { pusherServer } from "@/libs/pusher";
 import { getCurrentUser } from "@/libs/query";
 import { NextResponse } from "next/server";
+export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
 	try {

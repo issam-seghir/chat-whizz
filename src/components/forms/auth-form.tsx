@@ -16,7 +16,7 @@ const AuthForm = () => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const router = useRouter();
 	const searchParams = useSearchParams();
-	const redirectUrl = searchParams.get("from")?.toString() || "/users";
+	const redirectUrl = searchParams?.get("from")?.toString() || "/users";
 	const session = useSession();
 
 	useEffect(() => {

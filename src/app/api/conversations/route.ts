@@ -1,7 +1,7 @@
 import prisma from "@/libs/prismadb";
 import { getSession } from "@/libs/query";
 import { NextResponse } from "next/server";
-import { pusherServer } from "@/libs/pusher";
+// import { pusherServer } from "@/libs/pusher";
 
 export async function POST(request: Request) {
 	try {
@@ -43,11 +43,11 @@ export async function POST(request: Request) {
 					users: true,
 				},
 			});
-			newConversation.users.forEach(user => {
-				if(user.email) {
-					pusherServer.trigger(user.email,"conversation:new",newConversation)
-				}
-			});
+			// newConversation.users.forEach(user => {
+			// 	if(user.email) {
+			// 		pusherServer.trigger(user.email,"conversation:new",newConversation)
+			// 	}
+			// });
 			return NextResponse.json(newConversation);
 		}
 
@@ -90,11 +90,11 @@ export async function POST(request: Request) {
 				users: true,
 			},
 		});
-		newConversation.users.forEach((user) => {
-			if (user.email) {
-				pusherServer.trigger(user.email, "conversation:new", newConversation);
-			}
-		});
+		// newConversation.users.forEach((user) => {
+		// 	if (user.email) {
+		// 		pusherServer.trigger(user.email, "conversation:new", newConversation);
+		// 	}
+		// });
         return NextResponse.json(newConversation);
 	} catch (error: any) {
 		console.log(error, "CONVERSATION ERROR");

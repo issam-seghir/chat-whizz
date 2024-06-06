@@ -34,7 +34,7 @@ export async function POST(request: Request) {
 								id: member.value,
 							})),
 							{
-								id: currentUser?.data.id,
+								id: currentUser?.id,
 							},
 						],
 					},
@@ -56,12 +56,12 @@ export async function POST(request: Request) {
 				OR: [
 					{
 						userIds: {
-							equals: [currentUser?.data.id, userId],
+							equals: [currentUser?.id, userId],
 						},
 					},
 					{
 						userIds: {
-							equals: [userId, currentUser?.data.id],
+							equals: [userId, currentUser?.id],
 						},
 					},
 				],
@@ -78,7 +78,7 @@ export async function POST(request: Request) {
 				users: {
 					connect: [
 						{
-							id: currentUser?.data.id,
+							id: currentUser?.id,
 						},
 						{
 							id: userId,

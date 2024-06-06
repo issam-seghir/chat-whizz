@@ -19,7 +19,6 @@ interface GroupChatModelProps {
 }
 
 export function GroupChatModel({ users, isOpen, onClose }: GroupChatModelProps) {
-	console.log(users);
 	const router = useRouter();
 	const { conversationId } = useConversation();
 	const [isLoading, setIsLoading] = useState(false);

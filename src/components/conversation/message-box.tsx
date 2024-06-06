@@ -16,7 +16,6 @@ export default function MessageBox({ data, isLast }: MessageBoxProps) {
 		.filter((user) => user.email !== data?.sender?.email)
 		.map((user) => user.name)
 		.join(", ");
-		console.log(data.seen);
 
 	const continer = clsx("flex gap-3 p-4", isOwn && "justify-end");
 	const avatar = clsx("rounded-full w-fit h-fit", isOwn && "order-2");

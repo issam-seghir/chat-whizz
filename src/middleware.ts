@@ -26,7 +26,6 @@ const authRoutes = ["/"];
 
 export default withAuth(
 	async function middleware(req) {
-		console.log("redirected from middlware");
 
 		// Check the origin from the request
 		const origin = req.headers.get("origin") ?? "";
@@ -66,7 +65,6 @@ export default withAuth(
 		}
 
 		if (!isAuth && !isAuthRoutes) {
-			console.log("redirected from middlware");
 
 			const from = req.nextUrl.search ? path + req.nextUrl.search : path;
 			return NextResponse.redirect(new URL(`/?from=${encodeURIComponent(from)}`, req.url));

@@ -6,10 +6,10 @@ import { pusherServer } from "@/libs/pusher";
 export async function POST(request: Request) {
 	try {
 		const currentUser = await getCurrentUser();
-		const { userId, isGroup, members, name } = await request.json();
 		if (!currentUser?.data?.email || !currentUser?.data?.id) {
 			return new NextResponse("Unauthorized", { status: 401 });
 		}
+		const { userId, isGroup, members, name } = await request.json();
 
 		if (isGroup && (!members || members.length < 2 || !name)) {
 			return new NextResponse("Invalid data", { status: 400 });

@@ -2,6 +2,8 @@ import prisma from "@/libs/prismadb";
 import { getCurrentUser } from "@/libs/query";
 import { NextResponse } from "next/server";
 // import { pusherServer } from "@/libs/pusher";
+export const dynamic = "force-dynamic";
+
 interface IParams {
 	conversationId?: string;
 }

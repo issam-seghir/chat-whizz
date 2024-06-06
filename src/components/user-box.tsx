@@ -7,7 +7,7 @@ import { Avatar } from "./ui/avatar";
 interface UserBoxProps {
 	data: User;
 }
-
+export const dynamic = "force-dynamic";
 export function UserBox({ data }: UserBoxProps) {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const router = useRouter();

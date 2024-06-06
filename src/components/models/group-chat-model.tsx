@@ -11,7 +11,7 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { Model } from "../ui/model";
 import Select from "../ui/select";
-
+export const dynamic = "force-dynamic";
 interface GroupChatModelProps {
 	isOpen?: boolean;
 	onClose: () => void;

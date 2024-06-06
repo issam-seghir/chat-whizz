@@ -7,7 +7,7 @@ import axios from "axios";
 import { find } from "lodash";
 import { useEffect, useRef, useState } from "react";
 import MessageBox from "../conversation/message-box";
-
+export const dynamic = "force-dynamic";
 interface BodyProps {
 	initialMessages: FullMessage[];
 }

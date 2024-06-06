@@ -13,7 +13,7 @@ interface ConfirmModelProps {
 	isOpen?: boolean;
 	onClose: () => void;
 }
-
+export const dynamic = "force-dynamic";
 export function ConfirmModel({ isOpen, onClose  }: ConfirmModelProps) {
 	const router = useRouter();
 	const { conversationId } = useConversation();

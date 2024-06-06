@@ -1,12 +1,20 @@
 import prisma from "@/libs/prismadb";
-import { getCurrentUser } from "@/libs/query";
+import { getSession } from "@/libs/query";
 import { NextResponse } from "next/server";
 import { pusherServer } from "@/libs/pusher";
 
 export async function POST(request: Request) {
 	try {
-		const currentUser = await getCurrentUser();
-		if (!currentUser?.data?.email || !currentUser?.data?.id) {
+		const session = await getSession();
+		if (!session?.user?.email ) {
+			return new NextResponse("Unauthorized", { status: 401 });
+		}
+		const currentUser = await prisma.user.findUnique({
+			where: {
+				email: session?.user?.email as string,
+			},
+			});
+		if (!currentUser?.email || !currentUser?.id) {
 			return new NextResponse("Unauthorized", { status: 401 });
 		}
 		const { userId, isGroup, members, name } = await request.json();

@@ -1,5 +1,5 @@
-import NextAuth , {AuthOptions} from "next-auth";
 import bycrypt from "bcrypt";
+import NextAuth, { AuthOptions } from "next-auth";
 
 // Prisma
 import prisma from "@/libs/prismadb";
@@ -7,16 +7,16 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 
 // Providers
+import CredentialsProvider from "next-auth/providers/credentials";
 import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-import CredentialsProvider from "next-auth/providers/credentials";
 
 // fix prisma adapter typing error when used with prisma extensions like
 // prisma extension accelerate
 //? see the issus : https://github.com/nextauthjs/next-auth/pull/9798
 //? see the fix : https://github.com/nextauthjs/next-auth/commit/29c56dcbf3085d992535a3248d0f6257a12ac0d0
 
-export function ExtendedPrismaAdapter(
+function ExtendedPrismaAdapter(
 	prisma: PrismaClient | ReturnType<PrismaClient["$extends"]>
 ): ReturnType<typeof PrismaAdapter> {
 	const p = prisma as PrismaClient;
@@ -24,7 +24,7 @@ export function ExtendedPrismaAdapter(
 	return PrismaAdapter(p);
 }
 
-export const authOptions  : AuthOptions= {
+export const authOptions: AuthOptions = {
 	adapter: ExtendedPrismaAdapter(prisma),
 	session: {
 		strategy: "jwt",
@@ -35,16 +35,16 @@ export const authOptions  : AuthOptions= {
 		GoogleProvider({
 			clientId: process.env.GOOGLE_CLIENT_ID as string,
 			clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-		// 	 profile(profile) {
-        // return {
-        //   id: profile.id.toString(),
-        //   name: profile.name || profile.login,
-        //   username: profile.login,
-        //   email: profile.email,
-        //   image: profile.avatar_url,
-        //   followers: profile.followers,
-        //   verified: true
-        // };
+			// 	 profile(profile) {
+			// return {
+			//   id: profile.id.toString(),
+			//   name: profile.name || profile.login,
+			//   username: profile.login,
+			//   email: profile.email,
+			//   image: profile.avatar_url,
+			//   followers: profile.followers,
+			//   verified: true
+			// };
 		}),
 		GithubProvider({
 			clientId: process.env.GITHUB_ID as string,
@@ -58,7 +58,6 @@ export const authOptions  : AuthOptions= {
 			},
 			async authorize(credentials) {
 				{
-
 					if (!credentials?.email || !credentials?.password) {
 						throw new Error("Missing credentials");
 					}
@@ -78,10 +77,8 @@ export const authOptions  : AuthOptions= {
 				}
 			},
 		}),
-
-
 	],
-} ;
+};
 
 const handler = NextAuth(authOptions);
 

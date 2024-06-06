@@ -8,6 +8,7 @@ import { IoClose, IoTrash } from "react-icons/io5";
 import { ConfirmModel } from "../models/confirm-model";
 import { Avatar } from "../ui/avatar";
 import { GroupAvatar } from "../ui/group-avatar";
+import useActiveList from "@/hooks/useActiveList";
 
 interface ProfileDrawerProps {
 	data: Conversation & {
@@ -20,6 +21,9 @@ interface ProfileDrawerProps {
 export function ProfileDrawer({ data, isOpen, onClose }: ProfileDrawerProps) {
 	const otherUser = useOtherUser(data);
 	const [confirmOpen, setConfirmOpen] = useState(false);
+	const { members } = useActiveList();
+	const isActive = members.includes(otherUser?.email || "");
+
 	const joinedDate = useMemo(() => {
 		if (otherUser?.createdAt) {
 			const date = new Date(otherUser.createdAt);
@@ -36,8 +40,8 @@ export function ProfileDrawer({ data, isOpen, onClose }: ProfileDrawerProps) {
 
 	const statusText = useMemo(() => {
 		if (data.isGroup) return `${data.users.length} members`;
-		return "Active";
-	}, [data]);
+		return isActive ? "Active" : "Offline";
+	}, [data, isActive]);
 	return (
 		<Transition show={isOpen} as={Fragment}>
 			<ConfirmModel isOpen={confirmOpen} onClose={() => setConfirmOpen(false)} />

@@ -1,21 +1,13 @@
 import prisma from "@/libs/prismadb";
-import { getSession } from "@/libs/query";
+import {  getCurrentUser } from "@/libs/query";
 import { NextResponse } from "next/server";
-// import { pusherServer } from "@/libs/pusher";
+import { pusherServer } from "@/libs/pusher";
 export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
 	try {
-		const session = await getSession();
-		if (!session?.user?.email ) {
-			return new NextResponse("Unauthorized", { status: 401 });
-		}
-		const currentUser = await prisma.user.findUnique({
-			where: {
-				email: session?.user?.email as string,
-			},
-			});
-		if (!currentUser?.email || !currentUser?.id) {
+		const currentUser = await getCurrentUser();
+		if (!currentUser?.data?.email || !currentUser?.data?.id) {
 			return new NextResponse("Unauthorized", { status: 401 });
 		}
 		const { userId, isGroup, members, name } = await request.json();
@@ -35,7 +27,7 @@ export async function POST(request: Request) {
 								id: member.value,
 							})),
 							{
-								id: currentUser?.id,
+								id: currentUser?.data?.id,
 							},
 						],
 					},
@@ -44,11 +36,11 @@ export async function POST(request: Request) {
 					users: true,
 				},
 			});
-			// newConversation.users.forEach(user => {
-			// 	if(user.email) {
-			// 		pusherServer.trigger(user.email,"conversation:new",newConversation)
-			// 	}
-			// });
+			newConversation.users.forEach(user => {
+				if(user.email) {
+					pusherServer.trigger(user.email,"conversation:new",newConversation)
+				}
+			});
 			return NextResponse.json(newConversation);
 		}
 
@@ -57,12 +49,12 @@ export async function POST(request: Request) {
 				OR: [
 					{
 						userIds: {
-							equals: [currentUser?.id, userId],
+							equals: [currentUser?.data?.id, userId],
 						},
 					},
 					{
 						userIds: {
-							equals: [userId, currentUser?.id],
+							equals: [userId, currentUser?.data?.id],
 						},
 					},
 				],
@@ -79,7 +71,7 @@ export async function POST(request: Request) {
 				users: {
 					connect: [
 						{
-							id: currentUser?.id,
+							id: currentUser?.data?.id,
 						},
 						{
 							id: userId,
@@ -91,11 +83,11 @@ export async function POST(request: Request) {
 				users: true,
 			},
 		});
-		// newConversation.users.forEach((user) => {
-		// 	if (user.email) {
-		// 		pusherServer.trigger(user.email, "conversation:new", newConversation);
-		// 	}
-		// });
+		newConversation.users.forEach((user) => {
+			if (user.email) {
+				pusherServer.trigger(user.email, "conversation:new", newConversation);
+			}
+		});
         return NextResponse.json(newConversation);
 	} catch (error: any) {
 		console.log(error, "CONVERSATION ERROR");

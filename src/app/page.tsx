@@ -1,5 +1,8 @@
 import Image from "next/image";
+import { Suspense } from "react";
 import AuthForm from "../components/forms/auth-form";
+import { FormSkeleton } from "../components/forms/form-skeleton";
+
 export default function Home() {
 	return (
 		<div className="flex min-h-full flex-col justify-center py-12 sm: px-6 lg:px-8 bg-gray-100">
@@ -8,7 +11,9 @@ export default function Home() {
 				<h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">
 					Sign in into your account
 				</h2>
-				<AuthForm />
+				<Suspense fallback={<FormSkeleton/>}>
+					<AuthForm />
+				</Suspense>
 			</div>
 		</div>
 	);

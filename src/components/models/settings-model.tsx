@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { fieldset, Input } from "@/components/ui/input";
 import useConversation from "@/hooks/useConverstaion";
 import { User } from "@prisma/client";
 import axios from "axios";
@@ -12,6 +12,8 @@ import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { Model } from "../ui/model";
+import { ModeToggler } from "@/components/ui/mode-toggler";
+
 
 interface SettingsModelProps {
 	isOpen?: boolean;
@@ -66,7 +68,7 @@ export function SettingsModel({ isOpen, onClose, currentUser }: SettingsModelPro
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<div className="text-left space-y-12">
 					<div className="border-b border-gray-900/10 pb-12">
-						<h2 className="text-base font-semibold leading-7 text-gray-900">Profile</h2>
+						<h2 className="text-base font-semibold leading-7 ">Profile</h2>
 						<p className="mt-1 text-sm leading-6 text-gray-600"> Edit your public information</p>
 						<div className="mt-10 mb-4 flex flex-col gap-y-8">
 							<Input
@@ -79,7 +81,7 @@ export function SettingsModel({ isOpen, onClose, currentUser }: SettingsModelPro
 							/>
 						</div>
 						<div>
-							<label className="block leading-6 font-medium text-sm text-gray-900" htmlFor="">
+							<label className="block leading-6 font-medium text-sm " htmlFor="">
 								Photo
 							</label>
 							<div className="mt-2 flex items-center gap-x-3">
@@ -100,6 +102,15 @@ export function SettingsModel({ isOpen, onClose, currentUser }: SettingsModelPro
 									</Button>
 								</CldUploadButton>
 							</div>
+							<fieldset className="flex mt-6 flex-col gap-4 items-start">
+								<div>
+									<label htmlFor="theme" className={fieldset().label()}>
+										Appearance
+									</label>
+									<p className={fieldset().description()}>Change the color theme of UI</p>
+								</div>
+								<ModeToggler id="theme" />
+							</fieldset>
 						</div>
 					</div>
 					<div className="mt-6  flex items-center justify-end gap-x-6">

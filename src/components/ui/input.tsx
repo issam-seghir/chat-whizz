@@ -25,7 +25,7 @@ export function Input({
 }: InputProps) {
   return (
 		<div>
-			<label htmlFor={id} className="block text-sm font-medium leading-6 ">
+			<label htmlFor={id} className="block  text-sm font-medium leading-6 ">
 				{label}
 			</label>
 			<div className="mt-2">
@@ -37,7 +37,7 @@ export function Input({
 					disabled={disabled}
 					{...register(id, { required })}
 					className={clsx(
-						"form-input block w-full rounded-md border-0 py-1.5   shadow-sm sm:text-sm  focus:ring-2  sm:leading-6 ",
+						"form-input block w-full rounded-md border-0 py-1.5 text-dark-700  shadow-sm sm:text-sm  focus:ring-2  sm:leading-6 ",
 						errors[id] && "focus:ring-rose-500",
 						disabled && "opacity-50 cursor-default"
 					)}

@@ -127,15 +127,13 @@ const AuthForm = () => {
 					</Button>
 				</form>
 				<div className="mt-6">
-					<div className="relative">
-						<div className="absolute inset-0 flex items-center">
-							<div className="w-full border-t border-gray-300"></div>
-						</div>
-						<div className="relative flex justify-center text-sm">
-							<span className="px-2  text-primary-500">Or continue with</span>
-						</div>
+					<div className="relative flex items-center">
+						<div className="flex-grow border-t border-gray-300"></div>
+						<span className="px-2  dark:text-dark-100">Or continue with</span>
+						<div className="flex-grow border-t border-gray-300"></div>
 					</div>
 				</div>
+
 				<div className="mt-6 flex gap-2">
 					<Button
 						icon={BsGoogle}

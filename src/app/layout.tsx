@@ -1,9 +1,9 @@
 import { NextAuthProvider } from "@/contexts/nextauth-provider";
+import { ThemeProvider } from "@/contexts/theme-provider";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
-import { ActiveStatus } from "@/components/active-status";
 
 const inter = Inter({ subsets: ["latin"] });
 // metadata for html head to improve SEO
@@ -26,7 +26,15 @@ export default function RootLayout({
 			<body className={inter.className}>
 				<NextAuthProvider>
 					<Toaster />
-					{children}
+					<ThemeProvider
+						attribute="class"
+						defaultTheme="light"
+						enableSystem={false}
+						storageKey="chatwhizz-theme"
+						disableTransitionOnChange
+					>
+						{children}
+					</ThemeProvider>
 				</NextAuthProvider>
 			</body>
 		</html>

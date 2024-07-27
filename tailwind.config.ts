@@ -36,6 +36,9 @@ const config = {
 								"text-decoration": "underline",
 							},
 						},
+						placeholderColor: {
+							"dark-700": "#4a5568", // Define your custom color here
+						},
 						".dark a": {
 							color: theme("colors.brand[200]"),
 						},

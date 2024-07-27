@@ -55,7 +55,6 @@ export default withAuth(
 		// 2. Check if the user is authenticated
 		const token = await getToken({ req });
 		const isAuth = !!token;
-console.log(isAuth);
 
 		// // 2. Check if the current route is protected or public
 		const path = req.nextUrl.pathname;

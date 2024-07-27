@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/utils";
 import clsx from "clsx";
 import { Url } from "next/dist/shared/lib/router/router";
 import Link from "next/link";
@@ -23,9 +24,9 @@ export function MobileSideBarItem({ icon: Icon, href = "",path="", onClick, acti
 		<Link
 			onClick={handleClick}
 			href={href || path}
-			className={clsx(
-				"group flex gap-x-3  text-sm p-4 leading-6 font-semibold w-full justify-center text-gray-500 hover:text-black hover:bg-gray-100",
-				active && "bg-gray-100 text-black"
+			className={cn(
+				"group flex flex-row text-sm leading-6 w-full font-semibold  text-muted-foreground justify-center p-4 ",
+				active ? "bg-accent text-accent-foreground" : "hover:bg-accent/50 transition-colors"
 			)}
 		>
 			<Icon className="h-6 w-6" />

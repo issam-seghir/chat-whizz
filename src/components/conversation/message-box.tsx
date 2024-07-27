@@ -18,11 +18,11 @@ export default function MessageBox({ data, isLast }: MessageBoxProps) {
 		.join(", ");
 
 	const continer = clsx("flex gap-3 p-4", isOwn && "justify-end");
-	const avatar = clsx("rounded-full w-fit h-fit", isOwn && "order-2");
+	const avatar = clsx("rounded-full w-fit h-fit cursor-pointer ", isOwn && "order-2");
 	const body = clsx("flex flex-col gap-2 ", isOwn && "items-end");
 	const message = clsx(
 		"text-sm w-fit overflow-hidden",
-		isOwn ? "bg-sky-500 text-white" : "bg-gray-100",
+		isOwn ? "text-primary-foreground bg-primary" : "text-muted-foreground bg-secondary",
 		data?.image ? "rounded-md p-0 border-none" : "rounded-full py-2 px-3"
 	);
 	return (
@@ -32,8 +32,10 @@ export default function MessageBox({ data, isLast }: MessageBoxProps) {
 			</div>
 			<div className={body}>
 				<div className="flex items-baseline justify-center gap-1">
-					<div className="text-sm text-gray-500">{data.sender.name}</div>
-					<div className="text-xs text-gray-400">{format(new Date(data.createdAt), "p")}</div>
+					<div className="text-muted-foreground text-sm truncate">{data.sender.name}</div>
+					<div className="text-muted-foreground text-xs truncate">
+						{format(new Date(data.createdAt), "p")}
+					</div>
 				</div>
 				<div className={message}>
 					{data.image && (
@@ -47,7 +49,11 @@ export default function MessageBox({ data, isLast }: MessageBoxProps) {
 					)}
 					{data.body}
 				</div>
-					<div>{isOwn && seenList.length > 0 && <div className="text-xs font-light text-gray-500"> Seen By {seenList}</div>}</div>
+				<div>
+					{isOwn && seenList.length > 0 && (
+						<div className="text-xs font-light text-gray-500"> Seen By {seenList}</div>
+					)}
+				</div>
 			</div>
 		</div>
 	);

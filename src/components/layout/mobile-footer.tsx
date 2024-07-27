@@ -12,7 +12,7 @@ export function MobileFooter({ currentUser} : { currentUser: User | null}) {
 		return null;
 	}
 	return (
-		<div className="fixed justify-between w-full bottom-0 flex items-center  z-40 bg-white lg:hidden border-t-[1px] ">
+		<div className="fixed bg-card justify-between w-full bottom-0 flex items-center  z-40 lg:hidden border-t-[1px] ">
 			{routes.map((route) => (
 				<MobileSideBarItem key={route.name} {...route} />
 			))}

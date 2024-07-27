@@ -6,8 +6,6 @@ import React from 'react'
 import useActiveChannel from "@/hooks/useActiveChannel";
 
 export  function ActiveStatus() {
-    useActiveChannel();
-  return (
-    <div>ActiveStatus</div>
-  )
+  const { activeChannel } = useActiveChannel();
+  return <div> {activeChannel ? "Channel is active" : "No active channel"}</div>;
 }

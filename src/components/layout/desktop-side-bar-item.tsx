@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/utils";
 import clsx from "clsx";
 import { Url } from "next/dist/shared/lib/router/router";
 import Link from "next/link";
@@ -25,9 +26,9 @@ export function DesktopSideBarItem({ label, icon: Icon, href = "", path="", onCl
 		<li onClick={handleClick}>
 			<Link
 				href={href || path}
-				className={clsx(
-					"group flex gap-x-3 rounded-md text-sm p-3 leading-6 font-semibold text-gray-500 hover:text-black hover:bg-gray-100",
-					active && "bg-gray-100 text-black"
+				className={cn(
+					"group flex flex-row text-sm leading-6 font-semibold  text-muted-foreground items-center px-3 -mx-3 py-2 rounded-xl",
+					active ? "bg-accent text-accent-foreground" : "hover:bg-accent/50 transition-colors"
 				)}
 			>
 				<Icon className="h-6 w-6 shrink-0" />

@@ -28,7 +28,7 @@ export default function RootLayout({
 					<Toaster />
 					<ThemeProvider
 						attribute="class"
-						defaultTheme="light"
+						defaultTheme="dark"
 						enableSystem={false}
 						storageKey="chatwhizz-theme"
 						disableTransitionOnChange

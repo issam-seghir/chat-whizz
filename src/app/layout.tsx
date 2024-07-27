@@ -26,7 +26,6 @@ export default function RootLayout({
 			<body className={inter.className}>
 				<NextAuthProvider>
 					<Toaster />
-					<ActiveStatus/>
 					{children}
 				</NextAuthProvider>
 			</body>

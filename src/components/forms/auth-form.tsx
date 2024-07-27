@@ -113,8 +113,8 @@ const AuthForm = () => {
 		}
 	};
 	return (
-		<div className="mt-8 sm:max-auto sm:w-full sm:max-w-md">
-			<div className="bg-white px-4 py-8 shadow sm:rounded-lg sm:px-10">
+		<div className="mt-8 sm:max-auto sm:w-full sm:max-w-md bg-card/50 border-[1px] rounded-xl shadow-lg">
+			<div className="px-4 py-8  shadow sm:rounded-lg sm:px-10">
 				<form className="space-y-6" onSubmit={handleSubmit(onsSubmit)}>
 					{variant === "register" && (
 						<Input id="name" label="name" type="text" register={register} errors={errors} />
@@ -132,7 +132,7 @@ const AuthForm = () => {
 							<div className="w-full border-t border-gray-300"></div>
 						</div>
 						<div className="relative flex justify-center text-sm">
-							<span className="px-2 bg-white text-gray-500">Or continue with</span>
+							<span className="px-2  text-primary-500">Or continue with</span>
 						</div>
 					</div>
 				</div>
@@ -141,9 +141,8 @@ const AuthForm = () => {
 						icon={BsGoogle}
 						onClick={() => socialAction("google")}
 						type="button"
+						color="secondary"
 						fullWidth
-						secondary
-						className="hover:bg-gray-50"
 						disabled={isLoading}
 					></Button>
 					<Button
@@ -151,17 +150,16 @@ const AuthForm = () => {
 						onClick={() => socialAction("github")}
 						type="button"
 						fullWidth
-						secondary
-						className="hover:bg-gray-50"
+						color="secondary"
 						disabled={isLoading}
 					></Button>
 				</div>
-				<div className="flex gap-2 justify-center text-sm mt-6 px-2 text-gray-500 ">
+				<div className="flex gap-2 justify-center text-sm mt-6 px-2 text-primary-500 ">
 					<span>{variant === "login" ? "Don't have an account?" : "Already have an account?"}</span>
 					<button
 						type="button"
 						onClick={toggleVariant}
-						className="text-sky-500 hover:underline focus:outline-none"
+						className="text-dark-300 hover:underline focus:outline-none"
 					>
 						{variant === "login" ? "Register" : "Login"}
 					</button>

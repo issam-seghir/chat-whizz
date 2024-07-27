@@ -52,18 +52,17 @@
 ## Features
 
 - 🔒 **Authentication + Google/Github Auth** With **NextAuth**
-- 🎉 **Server** **creation** and customization
+- 🎉 **Creating** and **managing** **chat** rooms and **channels**
 - 📱 **Real-time** messaging using **Pusher**
-- 🚀 **Conversation** between members
+- 📨 **Group chats** and **one-on-one** messaging
 - 📌 **Message** **notifications** and alerts
 - 🌐 **Online**/**offline** user **status**
-- 📨 Group chats and one-on-one messaging
-- 👤 User profile customization and settings
-- ✨ **Creating** and **managing** **chat** rooms and **channels**
-- 🎁 **Send** **attachments & Images** as messages using **Cloudinary**
+- 👤 **User profile** customization and **settings**
+
 ---
+
+- 🎁 **Send** **attachments & Images** as messages using **Cloudinary**
 - 🧨 **Delete** & **Edit** messages in **real time** for all users
-- 🔍 **Search** **Command Line** Functionality
 - 🎨 **Theme Toggler** (Light /Dark mode)
 - 🚀 **Optimized SEO and Performance**: The project is optimized for SEO and performance using the latest Next.js features and best practices for **meta** tags and **Next/Image** && **site maps**.
 - 🎊 **Responsive Design**

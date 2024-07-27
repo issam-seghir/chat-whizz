@@ -19,7 +19,7 @@
   Include **Group** **chats** and one-on-one **messaging** , real time **notification** , **profile** management .
     <br />
     <br />
-    <a href="https://chat-whizz-production-e15b.up.railway.app/">View Demo</a>
+    <a href="https://chat-whizz.vercel.app">View Demo</a>
     .
     <a href="https://github.com/issam-seghir/chat-whizz/issues">Report Bug</a>
     .
@@ -127,7 +127,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 ## State
 
-[![Stargazers over time](https://starchart.cc/issam-seghir/discord-clone.svg)](https://starchart.cc/issam-seghir/discord-clone)
+[![Stargazers over time](https://starchart.cc/issam-seghir/chat-whizz.svg)](https://starchart.cc/issam-seghir/chat-whizz)
 
 
 ## Support Me

@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="logo.png" alt="logo" width="250" height="250">
+<img src="public/logo.png" alt="logo" width="250" height="250">
 
 <h1 align="center" >ChatWhizz</h1>
 

@@ -8,9 +8,9 @@ import { ActiveStatus } from "@/components/active-status";
 const inter = Inter({ subsets: ["latin"] });
 // metadata for html head to improve SEO
 export const metadata: Metadata = {
-	title: "Spectrum Store - Your One-Stop Shop",
+	title: "ChatWhizz | Revolutionize Your Conversations",
 	description:
-		"Discover a spectrum of possibilities with our wide range of products. Spectrum Store, your one-stop shop for all your needs.",
+		"Step into the future of communication with ChatWhizz. Engage in vibrant conversations, connect effortlessly, and experience unparalleled chat features designed to keep you closer to what matters.",
 	openGraph: {
 		type: "website",
 	},

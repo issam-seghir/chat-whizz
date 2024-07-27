@@ -50,12 +50,12 @@ export function ConfirmModel({ isOpen, onClose  }: ConfirmModelProps) {
 				<Button
 					className="ml-4"
 					disabled={isLoading}
-					danger
+					color="danger"
 					onClick={onDelete}
 				>
 					Delete
 				</Button>
-				<Button disabled={isLoading} secondary onClick={onClose}>
+				<Button disabled={isLoading} color="secondary" onClick={onClose}>
 					Cancel
 				</Button>
 			</div>

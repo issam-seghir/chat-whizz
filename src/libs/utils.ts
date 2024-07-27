@@ -80,6 +80,3 @@ export const authOptions: AuthOptions = {
 		}),
 	],
 };
-
-
-

@@ -24,7 +24,7 @@ export default function MessageInput({
 				placeholder={placeholder}
                 autoComplete={id}
 				{...register(id, { required: true })}
-				className="text-black font-light px-4 py-2 w-full rounded-full bg-neutral-100 focus:outline-none focus:border-sky-500"
+				className="text-muted font-light px-4 py-2 w-full rounded-full bg-dark-50  focus:outline-none focus:border-sky-500"
 			/>
 		</div>
 	);

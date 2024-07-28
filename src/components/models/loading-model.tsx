@@ -25,7 +25,7 @@ export  function LoadingModel() {
 				<div className="fixed inset-0 overflow-hidden z-0">
 					<div className="flex min-h-full items-center justify-center p-4 text-center">
 						<DialogPanel>
-							<ClipLoader size={40} color="#0284c7" />
+							<ClipLoader size={40} color="#765eff" />
 						</DialogPanel>
 					</div>
 				</div>

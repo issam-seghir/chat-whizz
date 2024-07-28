@@ -34,15 +34,15 @@ export function Form() {
 		})
 	}
 	return (
-		<div className="py-4 px-4 bg-white border-t flex items-center gap-2 lg:gap-4 w-full">
+		<div className="py-4 px-4 bg-card border-t flex items-center gap-2 lg:gap-4 w-full">
 			<CldUploadButton options={{ maxFiles: 1 }} onSuccess={handleUpload} uploadPreset="fyjlpc4m">
-				<HiPhoto size={30} className="text-sky-500" />
+				<HiPhoto size={30} className="text-primary" />
 			</CldUploadButton>
 			<form onSubmit={handleSubmit(onSubmit)} className="flex items-center gap-2 lg:gap-4 w-full">
 				<MessageInput id="message" placeholder="Type a message" required register={register} errors={errors} />
 				<button
 					type="submit"
-					className=" rounded-full p-2  bg-sky-500 cursor-pointer hover:bg-sky-600 transition"
+					className=" rounded-full p-2  bg-primary cursor-pointer hover:bg-primary/55 transition"
 				>
 					<HiPaperAirplane size={18} className="text-white" />
 				</button>

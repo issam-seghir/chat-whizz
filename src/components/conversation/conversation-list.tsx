@@ -11,6 +11,7 @@ import { useEffect, useMemo, useState } from "react";
 import { MdOutlineGroupAdd } from "react-icons/md";
 import { GroupChatModel } from "../models/group-chat-model";
 import { ConversationBox } from "./conversation-box";
+import { Button } from "@/components/ui/button";
 
 interface ConversationListProps {
 	initialItems: FullConversation[];
@@ -80,13 +81,13 @@ export function ConversationList({ users, initialItems }: ConversationListProps)
 			>
 				<div className="px-5">
 					<div className="flex justify-between items-center mb-4 pt-4">
-						<div className="text-2xl font-bold text-neutral-800  py-4">Messages</div>
-						<div
+						<div className="text-2xl font-bold py-4">Messages</div>
+						<Button
 							onClick={() => setIsModelOpen(true)}
-							className="rounded-full p-2 bg-gray-100 text-gray-600 cursor-pointer hover:opacity-75 transition"
+							className="rounded-full p-2 cursor-pointer hover:opacity-75 transition"
 						>
 							<MdOutlineGroupAdd size={20} />
-						</div>
+						</Button>
 					</div>
 					{items.map((item) => (
 						<ConversationBox key={item.id} data={item} selected={conversationId === item.id} />

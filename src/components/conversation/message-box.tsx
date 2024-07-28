@@ -17,7 +17,7 @@ export default function MessageBox({ data, isLast }: MessageBoxProps) {
 		.map((user) => user.name)
 		.join(", ");
 
-	const continer = clsx("flex gap-3 p-4", isOwn && "justify-end");
+	const continer = clsx("flex gap-3 p-4 items-center", isOwn && "justify-end");
 	const avatar = clsx("rounded-full w-fit h-fit cursor-pointer ", isOwn && "order-2");
 	const body = clsx("flex flex-col gap-2 ", isOwn && "items-end");
 	const message = clsx(

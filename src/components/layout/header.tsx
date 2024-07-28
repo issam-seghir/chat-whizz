@@ -37,7 +37,7 @@ export function Header({ conversation }: HeaderProps) {
 					>
 						<HiChevronLeft size={32} />
 					</Link>
-					<div className=" flex gap-3 items-center cursor-pointer" onClick={() => setDrawerOpen(true)}>
+					<div className=" flex gap-3 items-center justify-center cursor-pointer" onClick={() => setDrawerOpen(true)}>
 						{conversation.isGroup ? (
 							<GroupAvatar users={conversation.users} />
 						) : (

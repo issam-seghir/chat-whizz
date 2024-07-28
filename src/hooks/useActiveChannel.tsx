@@ -31,7 +31,4 @@ export default function useActiveChannel() {
 
   }, [activeChannel, add, remove, set])
 
-  return {
-		activeChannel,
-  };
 }

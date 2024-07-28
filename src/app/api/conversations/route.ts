@@ -12,8 +12,10 @@ export async function POST(request: Request) {
 		}
 		const { userId, isGroup, members, name } = await request.json();
 
-		if (isGroup && (!members || members.length < 2 || !name)) {
-			return new NextResponse("Invalid data", { status: 400 });
+	  if (isGroup && (!members || members.length < 2 || !name)) {
+			return new NextResponse("Invalid data: Group conversations require a name and at least two members", {
+				status: 400,
+			});
 		}
 
 		if (isGroup) {

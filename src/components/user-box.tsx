@@ -3,6 +3,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { Avatar } from "./ui/avatar";
+import clsx from "clsx";
 
 interface UserBoxProps {
 	data: User;
@@ -28,13 +29,15 @@ export function UserBox({ data }: UserBoxProps) {
 		<div
 			onClick={handleClick}
 			aria-disabled={isLoading}
-			className="w-full relative flex items-center space-x-3 bg-white p-3 hover:bg-neutral-100 rounded-lg transition cursor-pointer "
+			className={clsx(
+				"w-full relative mb-3 bg-card  hover:bg-accent flex items-center space-x-3  rounded-lg transition cursor-pointer p-3 "
+			)}
 		>
 			<Avatar user={data} />
 			<div className="min-w-0 flex-1">
 				<div className="focus:outline-none">
 					<div className="flex justify-between items-center mb-1">
-						<p className="text-sm font-medium text-gray-900">{data.name}</p>
+						<p className="text-md font-medium">{data.name}</p>
 					</div>
 				</div>
 			</div>

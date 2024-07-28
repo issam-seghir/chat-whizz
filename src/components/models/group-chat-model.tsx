@@ -54,7 +54,11 @@ export function GroupChatModel({ users, isOpen, onClose }: GroupChatModelProps) 
 			}
 		} catch (error: any) {
 			console.log(error);
-			toast.error("something wrong");
+			if(error.response?.data) {
+				toast.error(error.response.data);
+			} else {
+				toast.error("something wrong");
+			}
 		} finally {
 			setIsLoading(false);
 		}

@@ -19,7 +19,7 @@ export function ConfirmModel({ isOpen, onClose  }: ConfirmModelProps) {
 	const { conversationId } = useConversation();
 	const [isLoading, setIsLoading] = useState(false);
 
-	const onDelete = useCallback(() => {
+	const onDelete = () => {
 		setIsLoading(true);
 		axios
 			.delete(`/api/conversations/${conversationId}`)
@@ -30,7 +30,7 @@ export function ConfirmModel({ isOpen, onClose  }: ConfirmModelProps) {
 			})
 			.catch(() => toast.error("something went wrong !"))
 			.finally(() => setIsLoading(false));
-	}, [conversationId, router, onClose]);
+	};
 	return (
 		<Model isOpen={isOpen} onClose={onClose}>
 			<div className="sm:flex sm:items-start">

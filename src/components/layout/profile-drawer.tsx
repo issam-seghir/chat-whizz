@@ -105,11 +105,9 @@ export function ProfileDrawer({ data, isOpen, onClose }: ProfileDrawerProps) {
 															className="flex flex-col gap-3 items-center cursor-pointer hover:opacity-75"
 														>
 															<div className="h-10 w-10 bg-red-600 rounded-full flex items-center justify-center">
-																<IoTrash size={20} className="text-white"/>
+																<IoTrash size={20} className="text-white" />
 															</div>
-															<div className="text-sm font-light ">
-																Delete
-															</div>
+															<div className="text-sm font-light ">Delete</div>
 														</div>
 													</div>
 												</div>
@@ -139,10 +137,10 @@ export function ProfileDrawer({ data, isOpen, onClose }: ProfileDrawerProps) {
 															<>
 																<hr />
 																<div>
-																	<dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0">
+																	<dt className="text-sm font-medium  sm:w-40 sm:flex-shrink-0">
 																		Joined
 																	</dt>
-																	<dd className="mt-1 text-sm  text-gray-900 sm:col-span-2 ">
+																	<dd className="mt-1 text-sm  text-muted-foreground sm:col-span-2 ">
 																		<time dateTime={joinedDate}>{joinedDate}</time>
 																	</dd>
 																</div>

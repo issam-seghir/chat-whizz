@@ -20,7 +20,7 @@ export  function LoadingModel() {
 					leaveFrom="opacity-100"
 					leaveTo="opacity-0"
 				>
-					<div className="fixed inset-0 bg-gray-100 bg-opacity-50 transition-opacity" />
+					<div className="fixed inset-0 bg-dark-100 bg-opacity-50 transition-opacity" />
 				</TransitionChild>
 				<div className="fixed inset-0 overflow-hidden z-0">
 					<div className="flex min-h-full items-center justify-center p-4 text-center">

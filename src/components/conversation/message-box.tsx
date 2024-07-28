@@ -17,7 +17,7 @@ export default function MessageBox({ data, isLast }: MessageBoxProps) {
 		.map((user) => user.name)
 		.join(", ");
 
-	const continer = clsx("flex gap-3 p-4 items-center", isOwn && "justify-end");
+	const continer = clsx("flex gap-3 p-4 ", isOwn && "justify-end", data?.image ? "items-start" : "items-center");
 	const avatar = clsx("rounded-full w-fit h-fit cursor-pointer ", isOwn && "order-2");
 	const body = clsx("flex flex-col gap-2 ", isOwn && "items-end");
 	const message = clsx(
@@ -31,7 +31,7 @@ export default function MessageBox({ data, isLast }: MessageBoxProps) {
 				<Avatar user={data.sender} />
 			</div>
 			<div className={body}>
-				<div className="flex items-baseline justify-center gap-1">
+				<div className="flex items-center gap-1">
 					<div className="text-muted-foreground text-sm truncate">{data.sender.name}</div>
 					<div className="text-muted-foreground text-xs truncate">
 						{format(new Date(data.createdAt), "p")}

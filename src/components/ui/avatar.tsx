@@ -10,7 +10,6 @@ interface AvatarProps {
 export  function Avatar({user}: AvatarProps ) {
 	const {members} = useActiveList()
 	const isActive = members.includes(user?.email || "")
-	console.log(members);
 
   return (
 		<div className="relative ">

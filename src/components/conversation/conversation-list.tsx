@@ -55,7 +55,7 @@ export function ConversationList({ users, initialItems }: ConversationListProps)
 			setItems((current) => {
 				return [...current.filter((conver) => conver.id !== conversation.id)];
 			});
-			if (conversation.id === conversationId) return router.push("/conversation");
+			if (conversation.id === conversationId) return router.push("/conversations");
 		};
 
 		pusherClient.bind("conversation:new", conversationHandler);

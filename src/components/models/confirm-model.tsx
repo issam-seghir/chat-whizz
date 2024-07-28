@@ -38,11 +38,11 @@ export function ConfirmModel({ isOpen, onClose  }: ConfirmModelProps) {
 					<FiAlertTriangle className="h-6 w-6 text-red-600" />
 				</div>
 				<div className="text-center mt-3 sm:ml-4 sm:mt-0 sm:text-left">
-					<DialogTitle as="h3" className="text-base font-semibold leading-6 text-gray-900">
+					<DialogTitle as="h3" className="text-base font-semibold leading-6 ">
 						Delete Conversation
 					</DialogTitle>
 					<div className="mt-2">
-						<p className="text-sù text-gray-500">Are you sure you want to delete this conversation</p>
+						<p className="text-sù text-muted-foreground">Are you sure you want to delete this conversation</p>
 					</div>
 				</div>
 			</div>

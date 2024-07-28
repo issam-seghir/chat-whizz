@@ -69,7 +69,7 @@ export function ConversationBox({ data, selected }: ConversationBoxProps) {
 					<p
 						className={clsx(
 							"truncate text-sm",
-							hasSeen ? "text-muted-foreground" : "text-dark-50 font-semibold"
+							hasSeen ? "text-muted-foreground" : "dark:text-dark-50 font-semibold"
 						)}
 					>
 						{lastMessageText}

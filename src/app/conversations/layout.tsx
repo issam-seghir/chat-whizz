@@ -9,7 +9,6 @@ export default async function ConversationLayout({ children }: { children: React
 	const users = await getAllUsers();
 	return (
 		<>
-			<ActiveStatus />
 			<SideBar>
 				<div className="h-full">
 					<ConversationList users={users} initialItems={conversations} />

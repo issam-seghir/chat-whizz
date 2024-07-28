@@ -8,10 +8,9 @@ export const dynamic = "force-dynamic";
 export default async function UsersLayout({ children }: { children: React.ReactNode }) {
 	const users = await getAllUsers();
 	console.log("hello");
-	
+
 	return (
 		<>
-			<ActiveStatus />
 			<SideBar>
 				<div className="h-full">
 					<UserList items={users} />

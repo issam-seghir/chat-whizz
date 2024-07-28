@@ -6,7 +6,7 @@ import useConversation from "@/hooks/useConverstaion";
 export default function ConversationsPage() {
 	const { isOpen } = useConversation();
 	return (
-		<div className={clsx("lg:pl-80 h-full lg:block", isOpen ? "block" : "hidden")}>
+		<div className={clsx("lg:pl-80 lg:justify-center lg:items-center h-full lg:flex", isOpen ? "block" : "hidden")}>
 			<EmptyState />
 		</div>
 	);

@@ -1,11 +1,12 @@
+import { BoxIcon } from "lucide-react";
+
+
 export function EmptyState() {
 	return (
-		<div className="px-4 py-10 sm:px-6 lg:px-8 h-full flex justify-center items-center bg-gray-100">
-			<div className="text-center items-center flex flex-col">
-				<h3 className="mt-2 text-2xl font-semibold text-gray-900">
-					Select a Chat or Start a new Conversation{" "}
-				</h3>
-			</div>
+		<div className="flex flex-col items-center justify-center my-auto">
+			<BoxIcon className="w-20 h-20 text-brand-500 dark:text-brand-400 max-md:hidden" />
+			<p className="font-medium text-base text-foreground">Nothing here</p>
+			<p className="text-muted-foreground text-sm">Try to find someone chat with you?</p>
 		</div>
 	);
 }

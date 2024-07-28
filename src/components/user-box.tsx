@@ -30,14 +30,14 @@ export function UserBox({ data }: UserBoxProps) {
 			onClick={handleClick}
 			aria-disabled={isLoading}
 			className={clsx(
-				"w-full relative mb-3 bg-card  hover:bg-accent flex items-center space-x-3  rounded-lg transition cursor-pointer p-3 "
+				"w-full relative flex items-center space-x-3 p-3  mb-3 bg-card  hover:bg-accent    rounded-lg transition cursor-pointer "
 			)}
 		>
 			<Avatar user={data} />
 			<div className="min-w-0 flex-1">
 				<div className="focus:outline-none">
 					<div className="flex justify-between items-center mb-1">
-						<p className="text-md font-medium">{data.name}</p>
+						<p className="text-md font-bold">{data.name}</p>
 					</div>
 				</div>
 			</div>

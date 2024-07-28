@@ -15,12 +15,10 @@ const ConversationId = async ({params} : {params:IParams})=>{
 
     if(!conversation){
         return (
-            <div className="lg:pl-80 h-full">
-                <div className="h-full flex flex-col">
-                    <EmptyState />
-                </div>
-            </div>
-        )
+			<div className="lg:pl-80 justify-center items-center flex ">
+					<EmptyState />
+			</div>
+		);
     }
     return (
 		<div className="lg:pl-80 h-full">

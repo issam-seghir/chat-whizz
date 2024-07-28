@@ -9,6 +9,7 @@ import { ConfirmModel } from "../models/confirm-model";
 import { Avatar } from "../ui/avatar";
 import { GroupAvatar } from "../ui/group-avatar";
 import useActiveList from "@/hooks/useActiveList";
+import { Button } from "@/components/ui/button";
 
 interface ProfileDrawerProps {
 	data: Conversation & {
@@ -70,14 +71,14 @@ export function ProfileDrawer({ data, isOpen, onClose }: ProfileDrawerProps) {
 									leaveTo="translate-x-full"
 								>
 									<DialogPanel className="w-screen max-w-md">
-										<div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
+										<div className="flex h-full flex-col overflow-y-scroll bg-card py-6 shadow-xl">
 											<div className="px-4 sm:px-6">
 												<div className="flex items-start justify-end">
 													<div className="ml-3 flex h-7 items-center">
 														<button
+															className="hover:bg-red-500 p-1 rounded-full focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
 															onClick={onClose}
 															type="button"
-															className="rounded-md cursor-pointer bg-white text-gray-400 hover:text-gray-500 focus:ring-2 focus:outline-none focus:ring-sky-500 focus:ring-offset-2"
 														>
 															<span className="sr-only">Close panel</span>
 															<IoClose size={24} />
@@ -95,7 +96,7 @@ export function ProfileDrawer({ data, isOpen, onClose }: ProfileDrawerProps) {
 														)}
 													</div>
 													<div className="text-lg font-semibold">{title}</div>
-													<div className="text-sm font-light text-neutral-500">
+													<div className="text-sm font-light text-muted-foreground">
 														{statusText}
 													</div>
 													<div className="flex gap-10 my-8">
@@ -103,10 +104,10 @@ export function ProfileDrawer({ data, isOpen, onClose }: ProfileDrawerProps) {
 															onClick={() => setConfirmOpen(true)}
 															className="flex flex-col gap-3 items-center cursor-pointer hover:opacity-75"
 														>
-															<div className="h-10 w-10 bg-neutral-100 rounded-full flex items-center justify-center">
-																<IoTrash size={20} />
+															<div className="h-10 w-10 bg-red-600 rounded-full flex items-center justify-center">
+																<IoTrash size={20} className="text-white"/>
 															</div>
-															<div className="text-sm font-light text-neutral-600 ">
+															<div className="text-sm font-light ">
 																Delete
 															</div>
 														</div>
@@ -116,20 +117,20 @@ export function ProfileDrawer({ data, isOpen, onClose }: ProfileDrawerProps) {
 													<dl className="space-y-8 px-4 sm:space-y-6 sm:px-6">
 														{data.isGroup && (
 															<div>
-																<dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0">
+																<dt className="text-sm font-medium  sm:w-40 sm:flex-shrink-0">
 																	Emails
 																</dt>
-																<dd className="mt-1 text-sm text-gray-900 sm:col-span-2">
+																<dd className="mt-1 text-sm text-muted-foreground sm:col-span-2">
 																	{data?.users.map((user) => user.email).join(", \n")}
 																</dd>
 															</div>
 														)}
 														{!data.isGroup && (
 															<div>
-																<dt className="text-sm font-medium text-gray-500 sm:w-40 sm:flex-shrink-0">
+																<dt className="text-sm font-medium  sm:w-40 sm:flex-shrink-0">
 																	Email
 																</dt>
-																<dd className="mt-1 text-sm text-gray-900 sm:col-span-2">
+																<dd className="mt-1 text-sm text-muted-foreground sm:col-span-2">
 																	{otherUser?.email}
 																</dd>
 															</div>

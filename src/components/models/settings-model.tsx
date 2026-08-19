@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
+import { Button, button } from "@/components/ui/button";
 import { fieldset, Input } from "@/components/ui/input";
 import useConversation from "@/hooks/useConverstaion";
 import { User } from "@prisma/client";
@@ -96,10 +96,10 @@ export function SettingsModel({ isOpen, onClose, currentUser }: SettingsModelPro
 									options={{ maxFiles: 1 }}
 									onSuccess={handleUpload}
 									uploadPreset="fyjlpc4m"
+									className={button({ color: "secondary" })}
+									disabled={isLoading}
 								>
-									<Button disabled={isLoading} color="secondary">
-										Change
-									</Button>
+									Change
 								</CldUploadButton>
 							</div>
 							<fieldset className="flex mt-6 flex-col gap-4 items-start">

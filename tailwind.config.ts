@@ -1,6 +1,10 @@
 import type { Config } from "tailwindcss";
-import { PluginAPI } from "tailwindcss/types/config";
-const colors = require("tailwindcss/colors");
+import type { PluginAPI } from "tailwindcss/types/config";
+import colors from "tailwindcss/colors";
+import tailwindcssRadix from "tailwindcss-radix";
+import tailwindcssAnimate from "tailwindcss-animate";
+import typography from "@tailwindcss/typography";
+import forms from "@tailwindcss/forms";
 
 
 /** @type {import('tailwindcss').Config} */
@@ -140,10 +144,10 @@ const config = {
 		},
 	},
 	plugins: [
-		require("tailwindcss-radix")(),
-		require("tailwindcss-animate"),
-		require("@tailwindcss/typography"),
-		require("@tailwindcss/forms")({
+		tailwindcssRadix({}),
+		tailwindcssAnimate,
+		typography,
+		forms({
 			strategy: "class",
 		}),
 	],

@@ -1,5 +1,7 @@
 import prisma from "@/libs/prismadb";
+import { FullConversation, FullMessage } from "@/libs/types";
 import { authOptions } from "@/libs/utils";
+import { User } from "@prisma/client";
 import { getServerSession } from "next-auth/next";
 
 export async function getSession() {
@@ -33,7 +35,7 @@ export async function getCurrentUser() {
 /**
  ** Get All users Except the Current User
  */
-export async function getAllUsers() {
+export async function getAllUsers(): Promise<User[]> {
 	try {
 		const session = await getSession();
 		if (!session?.user?.email) return [];
@@ -58,7 +60,7 @@ export async function getAllUsers() {
 /**
  ** Get All Conversations of the Current User
  */
-export async function getAllConversation() {
+export async function getAllConversation(): Promise<FullConversation[]> {
 	try {
 		const currentUser = await getCurrentUser();
 		if (!currentUser?.data?.id) {
@@ -84,7 +86,7 @@ export async function getAllConversation() {
 				lastMessageAt: "desc",
 			},
 		});
-		return conversations;
+		return conversations as FullConversation[];
 	} catch (error: any) {
 		console.log(error);
 		return [];
@@ -122,7 +124,7 @@ export async function getConversationById(conversationId: string) {
  ** Get  Messages
  */
 
-export async function getMessages(conversationId: string) {
+export async function getMessages(conversationId: string): Promise<FullMessage[]> {
 	try {
 		const currentUser = await getCurrentUser();
 		if (!currentUser?.data?.id) {
@@ -141,7 +143,7 @@ export async function getMessages(conversationId: string) {
 				createdAt: "asc",
 			},
 		});
-		return messages;
+		return messages as FullMessage[];
 	} catch (error: any) {
 		console.log(error);
 		return [];

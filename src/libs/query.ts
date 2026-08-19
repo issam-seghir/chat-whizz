@@ -14,16 +14,11 @@ export async function getCurrentUser() {
 		const session = await getSession();
 		if (!session?.user?.email) return null;
 
-		const currentUser = await prisma.user
-			.findUnique({
-				// cacheStrategy: {
-				// 	swr: 60,
-				// },
-				where: {
-					email: session.user.email as string,
-				},
-			})
-			.withAccelerateInfo();
+		const currentUser = await prisma.user.findUnique({
+			where: {
+				email: session.user.email as string,
+			},
+		});
 		if (!currentUser) return null;
 		return currentUser;
 	} catch (error: any) {
@@ -63,14 +58,14 @@ export async function getAllUsers(): Promise<User[]> {
 export async function getAllConversation(): Promise<FullConversation[]> {
 	try {
 		const currentUser = await getCurrentUser();
-		if (!currentUser?.data?.id) {
+		if (!currentUser?.id) {
 			return [];
 		}
 
 		const conversations = await prisma.conversation.findMany({
 			where: {
 				userIds: {
-					has: currentUser?.data?.id,
+					has: currentUser.id,
 				},
 			},
 			include: {
@@ -100,7 +95,7 @@ export async function getAllConversation(): Promise<FullConversation[]> {
 export async function getConversationById(conversationId: string) {
 	try {
 		const currentUser = await getCurrentUser();
-		if (!currentUser?.data?.id) {
+		if (!currentUser?.id) {
 			return null;
 		}
 
@@ -127,7 +122,7 @@ export async function getConversationById(conversationId: string) {
 export async function getMessages(conversationId: string): Promise<FullMessage[]> {
 	try {
 		const currentUser = await getCurrentUser();
-		if (!currentUser?.data?.id) {
+		if (!currentUser?.id) {
 			return [];
 		}
 

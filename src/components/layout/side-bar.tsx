@@ -5,8 +5,7 @@ import { DesktopSideBar } from "./desktop-side-bar";
 import { MobileFooter } from "./mobile-footer";
 
 export async function SideBar({ children }: { children: React.ReactNode }) {
-	const data = await getCurrentUser();
-	const currentUser: User | null = data?.data || null;
+	const currentUser: User | null = await getCurrentUser();
 	return (
 		<div className="h-full">
 			<DesktopSideBar currentUser={currentUser} />

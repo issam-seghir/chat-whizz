@@ -6,7 +6,7 @@ export const dynamic = "force-dynamic";
 export async function POST(request: Request) {
 	try {
 		const currentUser = await getCurrentUser();
-		if (!currentUser?.data?.email || !currentUser?.data?.id) {
+		if (!currentUser?.email || !currentUser?.id) {
             return new NextResponse("Unauthorized", { status: 401 });
 		}
         const {name, image } = await request.json();
@@ -17,7 +17,7 @@ export async function POST(request: Request) {
 
 			const updatedUser = await prisma.user.update({
                 where : {
-                    id: currentUser?.data?.id
+                    id: currentUser.id
                 },
                 data:{
                     name,

@@ -11,7 +11,7 @@ interface IParams {
 export async function DELETE(request: Request, { params }: { params: Promise<IParams> }) {
 	try {
 		const currentUser = await getCurrentUser();
-		if (!currentUser?.data?.email || !currentUser?.data?.id) {
+		if (!currentUser?.email || !currentUser?.id) {
 			return new NextResponse("Unauthorized", { status: 401 });
 		}
 		const { conversationId } = await params;
@@ -33,7 +33,7 @@ export async function DELETE(request: Request, { params }: { params: Promise<IPa
 			where: {
 				id: conversationId,
 				userIds: {
-					hasSome: [currentUser.data.id],
+					hasSome: [currentUser.id],
 				},
 			},
 		});

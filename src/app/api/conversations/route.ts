@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 export async function POST(request: Request) {
 	try {
 		const currentUser = await getCurrentUser();
-		if (!currentUser?.data?.email || !currentUser?.data?.id) {
+		if (!currentUser?.email || !currentUser?.id) {
 			return new NextResponse("Unauthorized", { status: 401 });
 		}
 		const { userId, isGroup, members, name } = await request.json();
@@ -29,7 +29,7 @@ export async function POST(request: Request) {
 								id: member.value,
 							})),
 							{
-								id: currentUser?.data?.id,
+								id: currentUser.id,
 							},
 						],
 					},
@@ -51,12 +51,12 @@ export async function POST(request: Request) {
 				OR: [
 					{
 						userIds: {
-							equals: [currentUser?.data?.id, userId],
+							equals: [currentUser.id, userId],
 						},
 					},
 					{
 						userIds: {
-							equals: [userId, currentUser?.data?.id],
+							equals: [userId, currentUser.id],
 						},
 					},
 				],
@@ -73,7 +73,7 @@ export async function POST(request: Request) {
 				users: {
 					connect: [
 						{
-							id: currentUser?.data?.id,
+							id: currentUser.id,
 						},
 						{
 							id: userId,

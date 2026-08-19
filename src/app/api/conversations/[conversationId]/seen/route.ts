@@ -11,7 +11,7 @@ interface IParams {
 export async function POST(request: Request, { params }: { params: Promise<IParams> }) {
 	try {
 		const currentUser = await getCurrentUser();
-		if (!currentUser?.data?.email || !currentUser?.data?.id) {
+		if (!currentUser?.email || !currentUser?.id) {
 			return new NextResponse("Unauthorized", { status: 401 });
 		}
 		const { conversationId } = await params;
@@ -42,7 +42,7 @@ export async function POST(request: Request, { params }: { params: Promise<IPara
 			data: {
 				seen: {
 					connect: {
-						id: currentUser.data.id,
+						id: currentUser.id,
 					},
 				},
 			},
@@ -52,11 +52,11 @@ export async function POST(request: Request, { params }: { params: Promise<IPara
 			},
 		});
 
-		await pusherServer.trigger(currentUser.data.email, "conversation:update", {
+		await pusherServer.trigger(currentUser.email, "conversation:update", {
 			id: conversationId,
 			message: [updatedMessage],
 		});
-		if(lastMessage.senderId.indexOf(currentUser.data.id) !== 1) return NextResponse.json(conversation)
+		if(lastMessage.senderId.indexOf(currentUser.id) !== 1) return NextResponse.json(conversation)
 
 		await pusherServer.trigger(conversationId!, "message:update", updatedMessage);
 

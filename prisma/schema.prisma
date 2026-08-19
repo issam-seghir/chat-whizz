@@ -10,9 +10,8 @@ generator client {
 }
 
 datasource db {
-  provider  = "mongodb"
-  url       = env("DATABASE_URL")
-  directUrl = env("DATABASE_DIRECT_URL")
+  provider = "mongodb"
+  url      = env("DATABASE_DIRECT_URL")
 }
 
 model User {

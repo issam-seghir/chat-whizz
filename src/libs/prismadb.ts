@@ -1,10 +1,7 @@
-import { PrismaClient } from "@prisma/client/edge";
-import { withAccelerate } from "@prisma/extension-accelerate";
-
-// Learn more about instantiating PrismaClient in Next.js here: https://www.prisma.io/docs/data-platform/accelerate/getting-started
+import { PrismaClient } from "@prisma/client";
 
 const prismaClientSingleton = () => {
-	return new PrismaClient().$extends(withAccelerate());
+	return new PrismaClient();
 };
 
 declare const globalThis: {
